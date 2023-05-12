@@ -36,26 +36,6 @@ const loginAPICall = async (email, password) => {
     }
 };
 
-// const addCategory = async (formData) => {
-//     try {
-//         return await fetch(
-//             "https://fooddeliveryapp.onrender.com/api/addCategory",
-
-//             {
-//                 method: "POST",
-//                 headers: {
-//                     "Content-Type": "multipart/form-data",
-//                 },
-//                 body: formData,
-//             }
-//         );
-//     } catch (error) {
-//         console.log(error)
-//         return error;
-//     }
-// };
-
-
 const addCategory = async (formData) => {
     try {
         return await axios.post(
