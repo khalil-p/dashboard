@@ -1,0 +1,7 @@
+* {
+  font-size: 1rem !important;
+  letter-spacing: 0.02rem !important;
+}
+thead th {
+  font-weight: 600 !important;
+}

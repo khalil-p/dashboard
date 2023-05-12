@@ -1,0 +1,21 @@
+.dashboard {
+  width: 100vw;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  position: absolute;
+}
+
+.dashboardContainer {
+  /* border-left: 1px solid rgba(0, 0, 0, 0.13); */
+  background-color: rgba(255, 255, 255);
+  padding: 1rem 0;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem !important;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 2rem;
+}

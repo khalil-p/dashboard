@@ -1,0 +1,17 @@
+input {
+  padding: 0.2rem !important;
+}
+.MuiInputBase-root::before {
+  border: none !important;
+}
+.imageUpload {
+  font-size: 0.7rem !important;
+}
+h2 {
+  margin-bottom: 1rem !important;
+  font-size: 2rem !important;
+}
+.imgInput {
+  margin-left: 1rem !important;
+  width: 13rem !important;
+}
