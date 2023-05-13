@@ -29,7 +29,7 @@ function SideBar() {
                     defaultExpandIcon={<ImportExportIcon />}
                 >
                     <TreeItem nodeId='1' label='Products' className='products'>
-                        <Link to='/admin/products'>
+                        <Link to='dashBoard/productList'>
                             <TreeItem nodeId='2' label='All Products' icon={<PostAddIcon />} />
                         </Link>
                         <Link onClick={adminServices.getAllCategories} to='/dashBoard/categoryList' >
@@ -42,7 +42,7 @@ function SideBar() {
                                 <Link to=''>
                                     <TreeItem nodeId='5' label='Add Product' icon={<AddIcon />} />
                                 </Link>
-                                <Link to='addCategory'>
+                                <Link to=''>
                                     <TreeItem nodeId='6' label='Add Category' icon={<AddIcon />} />
                                 </Link>
                             </TreeItem>

@@ -1,5 +1,6 @@
 import './App.css';
 import CategoryTable from './components/CategoryTable';
+import ProductTable from './components/products/ProductTable';
 import Dashboard from './components/Dashboard.js';
 import Root from './components/Root'
 import { Link, Routes } from 'react-router-dom';
@@ -17,11 +18,11 @@ function App() {
     createRoutesFromElements(
 
       <Route >
-        {/* <Route path='/' element={<Dashboard />} > */}
         <Route path='/' element={<Dashboard />}  >
           <Route path='dashBoard/categoryList' element={<CategoryTable />} />
+          <Route path='dashBoard/productList' element={<ProductTable />} />
           <Route path='login' element={<LoginForm />} />
-          <Route path='addCategory' element={<KeepMountedModal />} />
+
         </Route>
       </Route>
     )
@@ -29,7 +30,6 @@ function App() {
   return (
 
     <div className="App">
-      {/* <Root /> */}
       <RouterProvider router={router} />
     </div>
 
