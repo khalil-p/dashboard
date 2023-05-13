@@ -13,6 +13,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard'
 import PeopleIcon from '@mui/icons-material/People'
 import RateReview from '@mui/icons-material/RateReview'
 import { adminServices } from '../services/admin.services'
+
 function SideBar() {
     return (
         <div className='sidebar'>
@@ -29,7 +30,7 @@ function SideBar() {
                     defaultExpandIcon={<ImportExportIcon />}
                 >
                     <TreeItem nodeId='1' label='Products' className='products'>
-                        <Link to='dashBoard/productList'>
+                        <Link onClick={adminServices.getAllProducts} to='dashBoard/productList'>
                             <TreeItem nodeId='2' label='All Products' icon={<PostAddIcon />} />
                         </Link>
                         <Link onClick={adminServices.getAllCategories} to='/dashBoard/categoryList' >
