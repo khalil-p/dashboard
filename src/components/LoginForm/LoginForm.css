@@ -1,0 +1,48 @@
+
+
+.main-hading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0rem;
+    margin-bottom: 2rem;
+}
+
+.main-containt{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.input1{
+    width: 15rem;
+    height: 1.7rem;
+    margin-bottom: 2rem;
+    border: none;
+    background-color: rgb(231, 224, 224);
+}
+
+.input2{
+    width: 15rem;
+    height: 1.7rem;
+    margin-bottom: 2rem;
+    border: none;
+    background-color: rgb(231, 224, 224);
+}
+
+.login-buton{
+    width: 15rem;
+    height: 1.7rem;
+    font-size: 1rem;
+    background-color: #24a0ed;
+    border: none;
+    cursor: pointer;
+}
+
+.input1:focus{
+    outline: none;
+}
+.input2:focus{
+    outline: none;
+}
