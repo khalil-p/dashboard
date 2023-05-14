@@ -4,77 +4,16 @@
 // }
 // {{devUrl}}/api/admin/login
 
-import * as React from 'react';
-import { useEffect, useState } from 'react'
-import { DataGrid } from '@mui/x-data-grid';
-import { adminServices } from '../services/admin.services';
-import { Avatar } from '@mui/material';
-import KeepMountedModal from './CreateModal';
-const columns = [
-    { field: 'srNo', headerName: 'Serial No.', width: 90 },
-    { field: 'name', headerName: 'Category Name', width: 300 },
-    {
-        field: 'image', headerName: 'Image', width: 90,
-        renderCell: (params) => {
-            return <Avatar src={params.value} sx={{ width: 50, height: 50 }} />
-        }
-    },
-];
-
-export default function CategoryTable() {
-    const [jsonData, setJsonData] = useState([]);
-    const [rows, setRows] = useState([]);
-    const [isLoading, setIsLoading] = useState(true)
-
-    useEffect(() => {
-        const fetchProductsList = async () => {
-            const data = await adminServices.getAllCategories().then((res) => {
-                console.log(res.data.categories);
-                const row1 = res.data.categories.map((item, index) => {
-                    return { srNo: index + 1, ...res.data.categories[index] };
-                });
-                setJsonData(res.data.categories);
-                setRows(row1);
-            });
-        };
-        fetchProductsList();
-        setIsLoading(false)
-    }, []);
-
-    console.log("The data in rows", rows);
-    console.log("The data in jsonData", jsonData);
-
-    if (isLoading) {
-        return <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>Loadin......</div>
-    } else {
-        return (
-            <>
-                <div className='addCategoryDiv' style={{ textAlign: 'right', marginBottom: '1rem', marginRight: '1.4rem' }}>
-                    <div className='addCategoryButton'>
-                        <  KeepMountedModal />
-                    </div>
-                </div>
-                <div style={{ height: 400, width: '100%' }}>
-                    <DataGrid
-                        rows={rows}
-                        columns={columns}
-                        initialState={{
-                            pagination: {
-                                paginationModel: { page: 0, pageSize: 5 },
-                            },
-                        }}
-                        pageSizeOptions={[5, 10]}
-                        checkboxSelection
-                    />
-                </div>
-            </>
-        );
-    }
-}
 
 
 
-/*
+
+
+
+
+
+
+
 
 import * as React from 'react';
 import PgNation from './pagination/PgNation';
@@ -184,4 +123,3 @@ export default function CategoryTable() {
         </div >
     );
 }
-*/

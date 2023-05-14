@@ -1,15 +1,7 @@
 import axios from "axios";
-// fake api
-// const getAllProducts = async () => {
-//     try {
-//         const { data } = await axios.get("https://fakestoreapi.com/products");
-//         console.log(data);
-//         return data;
-//     } catch (error) {
-//         console.log(error);
-//         return { error };
-//     }
-// };
+
+/*
+Categories api
 
 const getAllCategories = async (page) => {
     try {
@@ -22,15 +14,27 @@ const getAllCategories = async (page) => {
         return { error };
     }
 };
+*/
 
-const loginAPICall = async (email, password) => {
+
+const getAllCategories = async () => {
     try {
-        const res = await axios.post("https://reqres.in/api/login", {
-            email,
-            password,
-        });
-        // console.log(res);
-        return res.data;
+        const { data } = await axios.get(
+            'https://fooddeliveryapp.onrender.com/api/getAllCategory'
+        );
+        return data;
+    } catch (error) {
+        return { error };
+    }
+};
+
+
+const loginAPICall = async (item) => {
+    try {
+        const result = await axios.post("https://fooddeliveryapp.onrender.com/api/admin/login",
+            item
+        );
+        return result
     } catch (error) {
         return error;
     }

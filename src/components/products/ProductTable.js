@@ -39,8 +39,8 @@ export default function ProductTable() {
         setIsLoading(false)
     }, []);
 
-    console.log("The data in rows", rows);
-    console.log("The data in jsonData", jsonData);
+    // console.log("The data in rows", rows);
+    // console.log("The data in jsonData", jsonData);
 
     if (isLoading) {
         return <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>Loadin......</div>

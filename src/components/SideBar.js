@@ -11,10 +11,12 @@ import ImportExportIcon from '@mui/icons-material/ImportExport';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import PeopleIcon from '@mui/icons-material/People'
+import LogoutIcon from '@mui/icons-material/Logout';
 import RateReview from '@mui/icons-material/RateReview'
 import { adminServices } from '../services/admin.services'
-
+import { useNavigate } from 'react-router-dom';
 function SideBar() {
+    const navigate = useNavigate();
     return (
         <div className='sidebar'>
             {/* <Link to='/'>
@@ -63,10 +65,13 @@ function SideBar() {
                     Users
                 </p>
             </Link>
-            <Link to='/admin/Reviews'>
+            <Link to='/login' onClick={() => {
+                localStorage.clear();
+                navigate('/login');
+            }}>
                 <p>
-                    <PeopleIcon />
-                    Reviews
+                    <LogoutIcon />
+                    Logout
                 </p>
             </Link>
 

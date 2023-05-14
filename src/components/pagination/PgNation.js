@@ -1,4 +1,24 @@
 
+
+
+import * as React from 'react';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
+export default function PgNation(props) {
+    const handleChange = (event, value) => {
+        props.getPage(value);
+    };
+    return (
+        <Stack spacing={2}>
+            <Pagination count={10} color="primary" onChange={handleChange} />
+        </Stack>
+    );
+}
+
+
+
+/*
 import { Box, CssBaseline, Container } from '@mui/material'
 import { Pagination, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
@@ -27,3 +47,5 @@ function PgNation(props) {
 }
 
 export default PgNation
+
+*/
