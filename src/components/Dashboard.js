@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './dashboard.css'
+import { useNavigate } from 'react-router-dom'
 import SideBar from './SideBar'
 import { Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
@@ -7,6 +8,13 @@ import CategoryTable from './CategoryTable'
 import { adminServices } from '../services/admin.services'
 import { Outlet } from 'react-router-dom'
 function Dashboard() {
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (!localStorage.getItem("token")) {
+            navigate('/login')
+        }
+
+    }, []);
     return (
         <div className='dashboard'>
             <SideBar />
