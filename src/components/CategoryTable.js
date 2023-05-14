@@ -6,6 +6,7 @@
 
 import * as React from 'react';
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { DataGrid } from '@mui/x-data-grid';
 import { adminServices } from '../services/admin.services';
 import { Avatar } from '@mui/material';
@@ -22,6 +23,12 @@ const columns = [
 ];
 
 export default function CategoryTable() {
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (!localStorage.getItem("token")) {
+            navigate('/login')
+        }
+    }, [])
     const [jsonData, setJsonData] = useState([]);
     const [rows, setRows] = useState([]);
     const [isLoading, setIsLoading] = useState(true)

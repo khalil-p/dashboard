@@ -8,7 +8,7 @@
 // import Typography from '@mui/material/Typography';
 // import { Input, InputLabel, TextField } from '@mui/material';
 // import Avatar from '@mui/material/Avatar';
-// import './createModal.css'
+// import './createProductModal.css'
 // import { adminServices } from '../services/admin.services'
 // const style = {
 //     position: 'absolute',

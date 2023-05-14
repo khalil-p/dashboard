@@ -1,21 +1,5 @@
 import axios from "axios";
 
-/*
-Categories api
-
-const getAllCategories = async (page) => {
-    try {
-        const { data } = await axios.get(
-            'https://fooddeliveryapp.onrender.com/api/getAllCategory?_page=' + page
-        );
-        // console.log(data);
-        return data;
-    } catch (error) {
-        return { error };
-    }
-};
-*/
-
 
 const getAllCategories = async () => {
     try {

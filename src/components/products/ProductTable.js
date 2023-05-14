@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { DataGrid } from '@mui/x-data-grid';
 import { adminServices } from '../../services/admin.services';
 import { Avatar } from '@mui/material';
-
 const columns = [
     { field: 'id', headerName: 'Sr.No.', width: 60 },
     { field: 'name', headerName: 'Product Name', width: 210 },
@@ -11,7 +11,7 @@ const columns = [
     {
         field: 'image', headerName: 'Image', width: 90,
         renderCell: (params) => {
-            console.log(params.value);
+            // console.log(params.value);
             return <Avatar src={params.value} sx={{ width: 50, height: 50 }} />
         }
     },
@@ -20,6 +20,14 @@ const columns = [
 ];
 
 export default function ProductTable() {
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (!localStorage.getItem("token")) {
+            navigate('/login')
+        }
+    }, [])
+
+
     const [jsonData, setJsonData] = useState([]);
     const [rows, setRows] = useState([]);
     const [isLoading, setIsLoading] = useState(true)
