@@ -35,7 +35,7 @@ function LoginForm() {
     console.log(inputFiled);
   }
   return (
-    <div>
+    <div className='loginMainDiv'>
       <h2 className='main-hading'>LOGIN</h2>
       <div className='main-containt'>
         <input type='number' name='mobile' className='input1' placeholder='mobile' onChange={handleOnchange} value={inputFiled.mobile} />

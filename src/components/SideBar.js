@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "./sidebar.css"
 import adminLogo from '../assets/admin.png'
 // import mainPage from '../assets/home.png'
@@ -17,6 +17,12 @@ import { adminServices } from '../services/admin.services'
 import { useNavigate } from 'react-router-dom';
 function SideBar() {
     const navigate = useNavigate();
+    useEffect(() => {
+        if (!localStorage.getItem("token")) {
+            navigate('/login')
+        }
+
+    }, []);
     return (
         <div className='sidebar'>
             {/* <Link to='/'>
@@ -66,7 +72,7 @@ function SideBar() {
                 </p>
             </Link>
             <Link to='/login' onClick={() => {
-                localStorage.clear();
+                localStorage.removeItem("token");
                 navigate('/login');
             }}>
                 <p>
