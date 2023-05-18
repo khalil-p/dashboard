@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { DataGrid } from '@mui/x-data-grid';
 import { adminServices } from '../services/admin.services';
 import { Avatar } from '@mui/material';
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 import KeepMountedModal from './CreateModal';
 const columns = [
     { field: 'srNo', headerName: 'Serial No.', width: 90 },
@@ -20,18 +20,16 @@ const columns = [
         renderCell: (params) => {
             return (
                 <div>
-                <Button variant="contained" color="primary" style={{marginRight:'10px'}} >
-                  Edit
-                </Button>
-                <Button variant="contained" color="secondary" >
-                  Delete
-                </Button>
-              </div>
+                    <Button variant="contained" color="primary" style={{ marginRight: '10px' }} >
+                        Edit
+                    </Button>
+                    <Button variant="contained" color="secondary" >
+                        Delete
+                    </Button>
+                </div>
             )
         }
     },
-
-
 ];
 
 export default function CategoryTable() {
