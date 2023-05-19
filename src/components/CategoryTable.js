@@ -1,16 +1,10 @@
-// {
-//     "mobile":"8626014623",
-//     "password":"admin123@"
-// }
-// {{devUrl}}/api/admin/login
-
 import * as React from 'react';
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { DataGrid } from '@mui/x-data-grid';
 import { adminServices } from '../services/admin.services';
 import { Avatar } from '@mui/material';
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 import KeepMountedModal from './CreateModal';
 const columns = [
     { field: 'srNo', headerName: 'Serial No.', width: 90 },
@@ -32,15 +26,15 @@ const columns = [
                     <Button variant="contained" color="primary" style={{ marginRight: '10px' }} >
                         Edit
                     </Button>
+
                     <Button variant="contained" color="secondary" onClick={handleOnClick} >
+                    <Button variant="contained" color="secondary" >
                         Delete
                     </Button>
                 </div>
             )
         }
     },
-
-
 ];
 
 export default function CategoryTable() {
@@ -72,32 +66,32 @@ export default function CategoryTable() {
     console.log("The data in rows", rows);
     console.log("The data in jsonData", jsonData);
 
-    if (isLoading) {
+    if (isLoading)
         return <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>Loadin......</div>
-    } else {
-        return (
-            <>
-                <div className='addCategoryDiv' style={{ textAlign: 'right', marginBottom: '1rem', marginRight: '1.4rem' }}>
-                    <div className='addCategoryButton'>
-                        <  KeepMountedModal />
-                    </div>
+
+    return (
+        <>
+            <div className='addCategoryDiv' style={{ textAlign: 'right', marginBottom: '1rem', marginRight: '1.4rem' }}>
+                <div className='addCategoryButton'>
+                    <  KeepMountedModal />
                 </div>
-                <div style={{ height: 400, width: '100%' }}>
-                    <DataGrid
-                        rows={rows}
-                        columns={columns}
-                        initialState={{
-                            pagination: {
-                                paginationModel: { page: 0, pageSize: 5 },
-                            },
-                        }}
-                        pageSizeOptions={[5, 10]}
-                        checkboxSelection
-                    />
-                </div>
-            </>
-        );
-    }
+            </div>
+            <div style={{ height: 400, width: '100%' }}>
+                <DataGrid
+                    rows={rows}
+                    columns={columns}
+                    initialState={{
+                        pagination: {
+                            paginationModel: { page: 0, pageSize: 5 },
+                        },
+                    }}
+                    pageSizeOptions={[5, 10]}
+                    checkboxSelection
+                />
+            </div>
+        </>
+    );
+
 }
 
 
