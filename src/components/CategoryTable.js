@@ -24,15 +24,18 @@ const columns = [
     {
         field: 'action', headerName: 'Action', width: 200,
         renderCell: (params) => {
-            return (
+            const handleOnClick = ()=>{
+                console.log(columns);
+            }
+             return (
                 <div>
-                <Button variant="contained" color="primary" style={{marginRight:'10px'}} >
-                  Edit
-                </Button>
-                <Button variant="contained" color="secondary" >
-                  Delete
-                </Button>
-              </div>
+                    <Button variant="contained" color="primary" style={{ marginRight: '10px' }} >
+                        Edit
+                    </Button>
+                    <Button variant="contained" color="secondary" onClick={handleOnClick} >
+                        Delete
+                    </Button>
+                </div>
             )
         }
     },
