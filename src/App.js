@@ -48,18 +48,6 @@ function App() {
 
 
 
-  // const router = createBrowserRouter(
-  //   createRoutesFromElements(
-  //     <Route >
-  //       <Route path='/' element={<Dashboard />}  >
-  //         <Route path='dashBoard/categoryList' element={<CategoryTable />} />
-  //         <Route path='dashBoard/productList' element={<ProductTable />} />
-  //         <Route path='login' element={<LoginForm />} />
-  //       </Route>
-  //     </Route>
-  //   )
-  // )
-
 
   const router = createBrowserRouter(
     createRoutesFromElements(

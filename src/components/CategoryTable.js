@@ -18,16 +18,16 @@ const columns = [
     {
         field: 'action', headerName: 'Action', width: 200,
         renderCell: (params) => {
-            const handleOnClick = ()=>{
+            const handleOnClick = () => {
                 console.log(columns);
             }
-             return (
+            return (
                 <div>
                     <Button variant="contained" color="primary" style={{ marginRight: '10px' }} >
                         Edit
                     </Button>
 
-                    <Button variant="contained" color="secondary" onClick={handleOnClick} >
+                    {/* <Button variant="contained" color="secondary" onClick={handleOnClick}></Button> */}
                     <Button variant="contained" color="secondary" >
                         Delete
                     </Button>
