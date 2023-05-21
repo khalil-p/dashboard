@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './LoginForm.css'
 import 'react-toastify/dist/ReactToastify.css';
 import { adminServices } from '../../services/admin.services'
@@ -41,7 +41,7 @@ function LoginForm() {
           <div className='main-containt'>
             <input type='number' name='mobile' className='input1' placeholder='mobile' onChange={handleOnchange} value={inputFiled.mobile} />
             <input type='password' name='password' className='input2' placeholder='Password' onChange={handleOnchange} value={inputFiled.password} />
-            <button className='login-buton' onClick={handleOnClick}>login</button>
+            <button className='login-buton' onClick={handleOnClick}>Login</button>
           </div>
         </>)}
       </div>

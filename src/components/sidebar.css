@@ -3,9 +3,7 @@
 * {
   font-family: "Roboto" !important;
 }
-/* .products {
-  font-weight: 400;
-} */
+
 .sidebar {
   background-color: rgb(255, 255, 255);
   display: flex;
@@ -24,7 +22,6 @@
   text-decoration: none;
   color: rgba(0, 0, 0, 0.493);
   font: 200 1rem "Roboto";
-  /* padding: 2rem; */
   margin-top: 2rem;
   transition: all 0.5s;
 }
