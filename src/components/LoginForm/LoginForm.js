@@ -38,6 +38,7 @@ function LoginForm() {
     <>
       <div className='loginMainDiv'>
         {loading ? (<Circles type='Oval' color='#00BFFF' height={50} width={50} style={{ marginTop: '5rem' }} />) : (<>   <h2 className='main-hading'>LOGIN</h2>
+          <p style={{ fontSize: '0.8rem' }}>you'll be loggedout automatically after 15min of idle time </p>
           <div className='main-containt'>
             <input type='number' name='mobile' className='input1' placeholder='mobile' onChange={handleOnchange} value={inputFiled.mobile} />
             <input type='password' name='password' className='input2' placeholder='Password' onChange={handleOnchange} value={inputFiled.password} />
@@ -46,7 +47,6 @@ function LoginForm() {
         </>)}
       </div>
     </>
-
   )
 }
 export default LoginForm
