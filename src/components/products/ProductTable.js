@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { DataGrid } from '@mui/x-data-grid';
 import { adminServices } from '../../services/admin.services';
 import { Avatar } from '@mui/material';
+import AddProduct from './AddProduct';
 const columns = [
     { field: 'id', headerName: 'Sr.No.', width: 60 },
     { field: 'name', headerName: 'Product Name', width: 210 },
@@ -55,6 +56,7 @@ export default function ProductTable() {
     } else {
         return (
             <>
+            <AddProduct/>
                 <div style={{ height: 400, width: '100%' }}>
                     <DataGrid
                         rows={rows}

@@ -27,7 +27,6 @@ const columns = [
                         Edit
                     </Button>
 
-                    <Button variant="contained" color="secondary" onClick={handleOnClick} >
                     <Button variant="contained" color="secondary" >
                         Delete
                     </Button>
