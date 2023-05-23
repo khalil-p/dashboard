@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import "./sidebar.css"
-import adminLogo from '../assets/admin.png'
-// import mainPage from '../assets/home.png'
 import { Link } from 'react-router-dom';
 import { TreeView, TreeItem } from '@mui/lab';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -12,24 +10,13 @@ import ListAltIcon from '@mui/icons-material/ListAlt';
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import PeopleIcon from '@mui/icons-material/People'
 import LogoutIcon from '@mui/icons-material/Logout';
-import RateReview from '@mui/icons-material/RateReview'
 import { adminServices } from '../services/admin.services'
 import { useNavigate } from 'react-router-dom';
 function SideBar() {
     const navigate = useNavigate();
-    useEffect(() => {
-        if (!localStorage.getItem("token")) {
-            navigate('/login')
-        }
-
-    }, []);
     return (
         <div className='sidebar'>
-            {/* <Link to='/'>
-                <img src={mainPage} alt="" />
-            </Link> */}
             <Link to='/'>
-                {/* <img src={adminLogo} alt="" /> */}
                 <p><DashboardIcon />Dashboard</p>
             </Link>
             <Link>
@@ -80,8 +67,6 @@ function SideBar() {
                     Logout
                 </p>
             </Link>
-
-
         </div>
     )
 }
