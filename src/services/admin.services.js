@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 const getAllCategories = async () => {
     try {
         const { data } = await axios.get(
@@ -11,7 +10,6 @@ const getAllCategories = async () => {
         return { error };
     }
 };
-
 
 const addCategory = async (formData) => {
     try {
@@ -35,6 +33,16 @@ const getAllProducts = async () => {
     }
 }
 
+const addProduct = async (formData) => {
+    console.log(formData)
+    try {
+        return await axios.post(process.env.REACT_APP_FOOD_APP_API_4, formData)
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+
 const loginAPICall = async (item) => {
     try {
         const result = await axios.post(process.env.REACT_APP_FOOD_APP_GATEWAY_API,
@@ -51,6 +59,7 @@ export let adminServices = {
     getAllCategories: getAllCategories,
     loginAPICall: loginAPICall,
     addCategory: addCategory,
-    getAllProducts: getAllProducts
+    getAllProducts: getAllProducts,
+    addProduct: addProduct
 };
 

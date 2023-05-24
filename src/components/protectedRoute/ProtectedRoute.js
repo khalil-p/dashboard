@@ -14,5 +14,4 @@ const ProtectedRoute = (props) => {
     }
     return props.component;
 };
-
 export default ProtectedRoute;
