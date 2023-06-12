@@ -22,8 +22,8 @@ function Dashboard() {
             <SideBar />
             <div style={{ borderLeft: '1px solid rgba(0, 0, 0, 0.13)', paddingLeft: '1rem', paddingTop: '5rem', paddingRight: '1rem' }}>
                 <h1>DASHBOARD</h1>
-                <div style={{width:'100px',display:'flex'}}>
-                    <Card sx={{ minWidth: 275,backgroundColor:'#FFEBCD',marginLeft:'3rem' }}>
+                <div style={{ width: '100px', display: 'flex' }}>
+                    <Card sx={{ minWidth: 275, backgroundColor: '#FFEBCD', marginLeft: '3rem' }}>
                         <CardContent>
                             <Typography variant="h5" component="div">
                                 Total Numbers of Users
@@ -35,7 +35,7 @@ function Dashboard() {
                             </Typography>
                         </CardContent>
                     </Card>
-                    <Card sx={{ minWidth: 275,marginLeft:'5rem',backgroundColor: '#FFEBCD' }}>
+                    <Card sx={{ minWidth: 275, marginLeft: '5rem', backgroundColor: '#FFEBCD' }}>
                         <CardContent>
                             <Typography variant="h5" component="div">
                                 Total Numbers of Workers
@@ -46,7 +46,7 @@ function Dashboard() {
                             </Typography>
                         </CardContent>
                     </Card>
-                    <Card sx={{ minWidth: 275,marginLeft:'5rem',backgroundColor: '#FFEBCD' }}>
+                    <Card sx={{ minWidth: 275, marginLeft: '5rem', backgroundColor: '#FFEBCD' }}>
                         <CardContent>
                             <Typography variant="h5" component="div">
                                 Total Numbers of sell
