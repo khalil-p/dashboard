@@ -3,7 +3,7 @@ import axios from "axios";
 const getAllCategories = async () => {
     try {
         const { data } = await axios.get(
-            process.env.REACT_APP_FOOD_APP_API_1
+            "https://fooddeliveryapp.onrender.com/api/getAllCategory"
         );
         return data;
     } catch (error) {
@@ -14,7 +14,7 @@ const getAllCategories = async () => {
 const addCategory = async (formData) => {
     try {
         return await axios.post(
-            process.env.REACT_APP_FOOD_APP_API_2,
+            "https://fooddeliveryapp.onrender.com/api/addCategory",
             formData,
         );
     } catch (error) {
@@ -25,7 +25,7 @@ const addCategory = async (formData) => {
 
 const getAllProducts = async () => {
     try {
-        const { data } = await axios.get(process.env.REACT_APP_FOOD_APP_API_3)
+        const { data } = await axios.get("https://fooddeliveryapp.onrender.com/api/getAllProducts")
         console.log(data);
         return data
     } catch (error) {
@@ -36,7 +36,7 @@ const getAllProducts = async () => {
 const addProduct = async (formData) => {
     console.log(formData)
     try {
-        return await axios.post(process.env.REACT_APP_FOOD_APP_API_4, formData)
+        return await axios.post("https://fooddeliveryapp.onrender.com/api/addProduct", formData)
     } catch (error) {
         console.log(error)
         return error
@@ -45,7 +45,7 @@ const addProduct = async (formData) => {
 
 const loginAPICall = async (item) => {
     try {
-        const result = await axios.post(process.env.REACT_APP_FOOD_APP_GATEWAY_API,
+        const result = await axios.post("https://fooddeliveryapp.onrender.com/api/admin/login",
             item
         );
         return result
