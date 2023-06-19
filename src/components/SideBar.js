@@ -1,74 +1,110 @@
 import React from 'react'
-import "./sidebar.css"
-import { Link } from 'react-router-dom';
-import { TreeView, TreeItem } from '@mui/lab';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import PostAddIcon from '@mui/icons-material/PostAdd';
-import AddIcon from '@mui/icons-material/Add';
-import ImportExportIcon from '@mui/icons-material/ImportExport';
-import ListAltIcon from '@mui/icons-material/ListAlt';
+import './sidebar.css'
+import { Link } from 'react-router-dom'
+import { TreeView, TreeItem } from '@mui/lab'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import PostAddIcon from '@mui/icons-material/PostAdd'
+import AddIcon from '@mui/icons-material/Add'
+import ImportExportIcon from '@mui/icons-material/ImportExport'
+import ListAltIcon from '@mui/icons-material/ListAlt'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import PeopleIcon from '@mui/icons-material/People'
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from '@mui/icons-material/Logout'
 import { adminServices } from '../services/admin.services'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 function SideBar() {
-    const navigate = useNavigate();
-    return (
-        <div className='sidebar'>
-            <Link to='/'>
-                <p><DashboardIcon />Dashboard</p>
+  const navigate = useNavigate()
+  return (
+    <div className="sidebar">
+      <Link to="/">
+        <p>
+          <DashboardIcon />
+          Dashboard
+        </p>
+      </Link>
+      <Link>
+        <TreeView
+          defaultCollapseIcon={<ExpandMoreIcon />}
+          defaultExpandIcon={<ImportExportIcon />}
+        >
+          <TreeItem nodeId="1" label="Products" className="products">
+            <Link
+              onClick={adminServices.getAllProducts}
+              to="dashBoard/productList"
+            >
+              <TreeItem
+                nodeId="2"
+                label="All Products"
+                icon={<PostAddIcon />}
+              />
             </Link>
-            <Link>
-                <TreeView
-                    defaultCollapseIcon={<ExpandMoreIcon />}
-                    defaultExpandIcon={<ImportExportIcon />}
-                >
-                    <TreeItem nodeId='1' label='Products' className='products'>
-                        <Link onClick={adminServices.getAllProducts} to='dashBoard/productList'>
-                            <TreeItem nodeId='2' label='All Products' icon={<PostAddIcon />} />
-                        </Link>
-                        <Link onClick={adminServices.getAllCategories} to='/dashBoard/categoryList' >
-                            <TreeItem nodeId='3' label='Category' icon={<PostAddIcon />} />
-                        </Link>
-                        <TreeView
-                            defaultCollapseIcon={<ExpandMoreIcon />}
-                            defaultExpandIcon={<ImportExportIcon />}>
-                            <TreeItem nodeId='4' label='Create' className='create'>
-                                <Link to=''>
-                                    <TreeItem nodeId='5' label='Add Product' icon={<AddIcon />} />
-                                </Link>
-                                <Link to=''>
-                                    <TreeItem nodeId='6' label='Add Category' icon={<AddIcon />} />
-                                </Link>
-                            </TreeItem>
-                        </TreeView>
-                    </TreeItem>
-                </TreeView>
+            <Link
+              onClick={adminServices.getAllCategories}
+              to="/dashBoard/categoryList"
+            >
+              <TreeItem nodeId="3" label="Category" icon={<PostAddIcon />} />
             </Link>
-            <Link to='/admin/orders'>
-                <p>
-                    <ListAltIcon />
-                    Orders
-                </p>
+            <TreeView
+              defaultCollapseIcon={<ExpandMoreIcon />}
+              defaultExpandIcon={<ImportExportIcon />}
+            >
+              <TreeItem nodeId="4" label="Create" className="create">
+                <Link to="">
+                  <TreeItem nodeId="5" label="Add Product" icon={<AddIcon />} />
+                </Link>
+                <Link to="">
+                  <TreeItem
+                    nodeId="6"
+                    label="Add Category"
+                    icon={<AddIcon />}
+                  />
+                </Link>
+              </TreeItem>
+            </TreeView>
+          </TreeItem>
+        </TreeView>
+      </Link>
+      <Link to="/admin/orders">
+        <p>
+          <ListAltIcon />
+          Orders
+        </p>
+      </Link>
+      <Link to="/admin/users">
+        <p>
+          <PeopleIcon />
+          Users
+        </p>
+      </Link>
+      <Link>
+        <TreeView
+          defaultCollapseIcon={<ExpandMoreIcon />}
+          defaultExpandIcon={<ImportExportIcon />}
+        >
+          <TreeItem nodeId="1" label="Delivery Boy" className="delivery">
+            <Link
+              onClick={adminServices.deliveryBoyRegister}
+              to="dashBoard/deliveryBoyRegister"
+            >
+              <TreeItem nodeId="2" label="Register" icon={<PostAddIcon />} />
             </Link>
-            <Link to='/admin/users'>
-                <p>
-                    <PeopleIcon />
-                    Users
-                </p>
-            </Link>
-            <Link to='/login' onClick={() => {
-                localStorage.removeItem("token");
-                navigate('/login');
-            }}>
-                <p>
-                    <LogoutIcon />
-                    Logout
-                </p>
-            </Link>
-        </div>
-    )
+          </TreeItem>
+        </TreeView>
+      </Link>
+      <Link
+        to="/login"
+        onClick={() => {
+          localStorage.removeItem('token')
+          navigate('/login')
+        }}
+      >
+        <p>
+          <LogoutIcon />
+          Logout
+        </p>
+      </Link>
+    </div>
+  )
 }
 
 export default SideBar

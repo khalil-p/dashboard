@@ -4,8 +4,10 @@ import Dashboard from './components/Dashboard.js';
 import LoginForm from './components/LoginForm/LoginForm'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
-
+import { adminServices } from './services/admin.services';
+import DeliveryBoyRegister from './components/DeliveryBoy/DeliveryBoyRegister';
 function App() {
+  adminServices.deliveryBoyRegister()
   // Set the timeout duration in minutes (e.g. 30 minutes)
   const TIMEOUT_DURATION = 30;
   // Get the current time in milliseconds
@@ -39,6 +41,7 @@ function App() {
         <Route path="/" element={<ProtectedRoute component={<Dashboard />} />} >
           <Route path="dashBoard/productList" element={<ProtectedRoute component={<ProductTable />} />} />
           <Route path="dashBoard/categoryList" element={<ProtectedRoute component={<CategoryTable />} />} />
+          <Route path="dashBoard/deliveryBoyRegister" element={<ProtectedRoute component={<DeliveryBoyRegister />} />} />
         </Route>
       </Routes>
     </Router>
