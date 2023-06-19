@@ -16,7 +16,7 @@ function SideBar() {
   const navigate = useNavigate()
   return (
     <div className="sidebar">
-      <Link to="/">
+      <Link to="/dashBoard">
         <p>
           <DashboardIcon />
           Dashboard
@@ -83,7 +83,7 @@ function SideBar() {
         >
           <TreeItem nodeId="1" label="Delivery Boy" className="delivery">
             <Link
-              onClick={adminServices.deliveryBoyRegister}
+              // onClick={adminServices.deliveryBoyRegister}
               to="dashBoard/deliveryBoyRegister"
             >
               <TreeItem nodeId="2" label="Register" icon={<PostAddIcon />} />
