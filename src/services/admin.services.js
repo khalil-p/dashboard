@@ -54,6 +54,60 @@ const loginAPICall = async (item) => {
     }
 };
 
+const deliveryBoyList = async () => {
+    try {
+        const token = JSON.parse(localStorage.getItem('token'));
+        console.log(token);
+        const result = await axios.get("https://fooddeliveryapp.onrender.com/api/deleveryBoys",
+        { headers: {"Authorization" : token}}
+        );
+        return result
+    } catch (error) {
+        return error;
+    }
+};
+
+const completedOrderList = async () => {
+    try {
+        const token = JSON.parse(localStorage.getItem('token'));
+        console.log(token);
+        const result = await axios.get("https://fooddeliveryapp.onrender.com/api/admin/orders?status=Completed",
+        { headers: {"Authorization" : token}}
+        );
+        return result
+    } catch (error) {
+        return error;
+    }
+};
+
+const cancelledOrderList = async () => {
+    try {
+        const token = JSON.parse(localStorage.getItem('token'));
+        console.log(token);
+        const result = await axios.get("https://fooddeliveryapp.onrender.com/api/admin/orders?status=Cancelled",
+        { headers: {"Authorization" : token}}
+        );
+        return result
+    } catch (error) {
+        return error;
+    }
+};
+
+const pendingOrderList = async () => {
+    try {
+        const token = JSON.parse(localStorage.getItem('token'));
+        console.log(token);
+        const result = await axios.get("https://fooddeliveryapp.onrender.com/api/admin/orders?status=Pending",
+        { headers: {"Authorization" : token}}
+        );
+        return result
+    } catch (error) {
+        return error;
+    }
+};
+
+
+
 // const deliveryBoyRegister = async () =>{
 //     const deliveryBoyDetails = {
 //             "firstName":"khalil",
@@ -79,6 +133,10 @@ export let adminServices = {
     addCategory: addCategory,
     getAllProducts: getAllProducts,
     addProduct: addProduct,
+    deliveryBoyList:deliveryBoyList,
+    completedOrderList:completedOrderList,
+    cancelledOrderList:cancelledOrderList,
+    pendingOrderList:pendingOrderList
     // deliveryBoyRegister:deliveryBoyRegister
 };
 

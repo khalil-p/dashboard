@@ -64,7 +64,7 @@ function SideBar() {
           </TreeItem>
         </TreeView>
       </Link>
-      <Link to="/admin/orders">
+      <Link to="dashBoard/orders">
         <p>
           <ListAltIcon />
           Orders
@@ -88,7 +88,14 @@ function SideBar() {
             >
               <TreeItem nodeId="2" label="Register" icon={<PostAddIcon />} />
             </Link>
+            <Link
+              // onClick={adminServices.deliveryBoyRegister}
+              to="dashBoard/deliveryBoyList"
+            >
+              <TreeItem nodeId="3" label="Delivery Boy List" icon={<PostAddIcon />} />
+            </Link>
           </TreeItem>
+
         </TreeView>
       </Link>
       <Link

@@ -7,6 +7,8 @@ import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 import { adminServices } from './services/admin.services';
 import DeliveryBoyRegister from './components/DeliveryBoy/DeliveryBoyRegister';
 import DashBoardDetails from './components/DashBoardDetails';
+import DeliveryBoyList from './components/DeliveryBoy/DeliveryBoyList';
+import OrderTabs from './components/Oders/OrderTabs';
 function App() {
   // adminServices.deliveryBoyRegister()
   // Set the timeout duration in minutes (e.g. 30 minutes)
@@ -44,6 +46,8 @@ function App() {
           <Route path="dashBoard" element={<ProtectedRoute component={<DashBoardDetails />} />} />
           <Route path="dashBoard/categoryList" element={<ProtectedRoute component={<CategoryTable />} />} />
           <Route path="dashBoard/deliveryBoyRegister" element={<ProtectedRoute component={<DeliveryBoyRegister />} />} />
+          <Route path="dashBoard/deliveryBoyList" element={<ProtectedRoute component={<DeliveryBoyList />} />} />
+          <Route path="dashBoard/orders" element={<ProtectedRoute component={< OrderTabs />} />} />
         </Route>
       </Routes>
     </Router>
