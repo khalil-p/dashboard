@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './delivery.css'
 import { TextField, Button, Container } from '@mui/material';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 const DeliveryBoyRegister = () => {
   const [formData, setFormData] = useState({
@@ -20,6 +21,7 @@ const DeliveryBoyRegister = () => {
       [name]: value,
     }));
   };
+  let notify;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,16 +30,25 @@ const DeliveryBoyRegister = () => {
         'https://fooddeliveryapp.onrender.com/api/delivery/register',
         formData
       );
-      if(response.data.data.status===200 || response.data.data.status===201){
-        alert('Delivery Boy Registration Successful')
+      // if(response.data.data.status===200 || response.data.data.status===201){
+      //   alert('Delivery Boy Registration Successful')
+      // }
+      if (response.data.data.status === 200 || response.data.data.status === 201) {
+        notify = () => { toast("DeliveryBoy Added Successfully") }
+        notify()
+      } else {
+        console.log('something went wrong')
       }
       console.log(response.data); // handle success response
     } catch (error) {
-      console.log(error.response.data); // handle error response
+      console.log(error.response.data.message); // handle error response
+      notify = () => { toast("An Error Occured") }
+      notify()
     }
   };
 
   return (
+    <>
     <Container maxWidth="sm">
       <h1>Delivery Boy Registration</h1>
       <form onSubmit={handleSubmit}>
@@ -97,6 +108,8 @@ const DeliveryBoyRegister = () => {
         </Button>
       </form>
     </Container>
+    <ToastContainer />
+    </>
   );
 };
 
