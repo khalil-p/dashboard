@@ -1,9 +1,10 @@
 import axios from "axios";
-
+// const baseUrl = 'http://ec2-35-89-245-251.us-west-2.compute.amazonaws.com:3002'
+const baseUrl = 'https://madni-food-app.vercel.app'
 const getAllCategories = async () => {
     try {
         const { data } = await axios.get(
-            "https://fooddeliveryapp.onrender.com/api/getAllCategory"
+            `${baseUrl}/api/getAllCategory`
         );
         return data;
     } catch (error) {
@@ -14,7 +15,7 @@ const getAllCategories = async () => {
 const addCategory = async (formData) => {
     try {
         return await axios.post(
-            "https://fooddeliveryapp.onrender.com/api/addCategory",
+            `${baseUrl}/api/addCategory`,
             formData,
         );
     } catch (error) {
@@ -25,7 +26,7 @@ const addCategory = async (formData) => {
 
 const getAllProducts = async () => {
     try {
-        const { data } = await axios.get("https://fooddeliveryapp.onrender.com/api/getAllProducts")
+        const { data } = await axios.get(`${baseUrl}/api/getAllProducts`)
         console.log(data);
         return data
     } catch (error) {
@@ -36,7 +37,16 @@ const getAllProducts = async () => {
 const addProduct = async (formData) => {
     console.log(formData)
     try {
-        return await axios.post("https://fooddeliveryapp.onrender.com/api/addProduct", formData)
+        return await axios.post(`${baseUrl}/api/addProduct`, formData)
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+const updateProduct = async (formData) => {
+    console.log(formData)
+    try {
+        return await axios.post(`${baseUrl}/api/updateProductById`, formData)
     } catch (error) {
         console.log(error)
         return error
@@ -45,7 +55,7 @@ const addProduct = async (formData) => {
 
 const loginAPICall = async (item) => {
     try {
-        const result = await axios.post("https://fooddeliveryapp.onrender.com/api/admin/login",
+        const result = await axios.post(`${baseUrl}/api/admin/login`,
             item
         );
         return result
@@ -58,7 +68,7 @@ const deliveryBoyList = async () => {
     try {
         const token = JSON.parse(localStorage.getItem('token'));
         console.log(token);
-        const result = await axios.get("https://fooddeliveryapp.onrender.com/api/deleveryBoys",
+        const result = await axios.get(`${baseUrl}/api/deleveryBoys`,
         { headers: {"Authorization" : token}}
         );
         return result
@@ -71,7 +81,7 @@ const completedOrderList = async () => {
     try {
         const token = JSON.parse(localStorage.getItem('token'));
         console.log(token);
-        const result = await axios.get("https://fooddeliveryapp.onrender.com/api/admin/orders?status=Completed",
+        const result = await axios.get(`${baseUrl}/api/admin/orders?status=Completed`,
         { headers: {"Authorization" : token}}
         );
         return result
@@ -84,7 +94,7 @@ const cancelledOrderList = async () => {
     try {
         const token = JSON.parse(localStorage.getItem('token'));
         console.log(token);
-        const result = await axios.get("https://fooddeliveryapp.onrender.com/api/admin/orders?status=Cancelled",
+        const result = await axios.get(`${baseUrl}/api/admin/orders?status=Cancelled`,
         { headers: {"Authorization" : token}}
         );
         return result
@@ -97,7 +107,7 @@ const pendingOrderList = async () => {
     try {
         const token = JSON.parse(localStorage.getItem('token'));
         console.log(token);
-        const result = await axios.get("https://fooddeliveryapp.onrender.com/api/admin/orders?status=Pending",
+        const result = await axios.get(`${baseUrl}/api/admin/orders?status=Pending`,
         { headers: {"Authorization" : token}}
         );
         return result
@@ -118,7 +128,7 @@ const pendingOrderList = async () => {
 //             "deviceToken":"eZ8HqKz3Qm-r9qGd-v-oD7:APA91bHUdB8aYmlPXKoET6hr10MqwUZoftaoMTnRSg-bP-mdNEhROPv3oYgTkItElN47ziXOyjhWRxdYd-VO9yTrdQeTQCNx4Jrp24dojkaa3_CfvCv2cOo3gzBcMPCcmVq2BrV8PxsD"
 //     }
 //     try {
-//         const result = await axios.post("https://fooddeliveryapp.onrender.com/api/delivery/register", deliveryBoyDetails);
+//         const result = await axios.post("${baseUrl}/api/delivery/register", deliveryBoyDetails);
 //         console.log(result);
 //         return result
 //     } catch (error) {
@@ -136,7 +146,8 @@ export let adminServices = {
     deliveryBoyList:deliveryBoyList,
     completedOrderList:completedOrderList,
     cancelledOrderList:cancelledOrderList,
-    pendingOrderList:pendingOrderList
+    pendingOrderList:pendingOrderList,
+    updateProduct
     // deliveryBoyRegister:deliveryBoyRegister
 };
 

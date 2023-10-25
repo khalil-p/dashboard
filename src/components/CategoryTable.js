@@ -17,9 +17,7 @@ const columns = [
     {
         field: 'action', headerName: 'Action', width: 200,
         renderCell: (params) => {
-            const handleOnClick = () => {
-                console.log(columns);
-            }
+          
             return (
                 <div>
                     <Button variant="contained" color="primary" style={{ marginRight: '10px' }} >
