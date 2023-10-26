@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Input, InputLabel, TextField } from "@mui/material";
+import { Input, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import "./createProductModal.css";
 import { adminServices } from "../../services/admin.services";
@@ -33,14 +33,23 @@ export default function CreateProductModal() {
   const [discount, setDiscount] = useState("");
   const [description, setDescription] = useState("");
   const [img, setImg] = useState("");
-  // const [adminid, setAdminId] = useState('6416bb61115dc8d869fde3e1')
-  // const [tostMessage, setTostMessage] = useState('')
+  const [categoryList, setCategoryList] = useState([]);
+
   const [response, setResponse] = useState(null);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   let notify;
-
+  const fetchProductsList = async () => {
+    const data = await adminServices.getAllCategories().then((res) => {
+      console.log(res.data.categories ,'categories ');
+    
+      setCategoryList(res.data.categories)
+    });
+  };
+  useEffect(() => {
+    fetchProductsList();
+  }, []);
   async function getFormData(e) {
     e.preventDefault();
     const formData = new FormData();
@@ -77,7 +86,7 @@ export default function CreateProductModal() {
 
   return (
     <>
-      <div>
+      <div> 
         <Button onClick={handleOpen}>Add Product</Button>
         <Modal
           keepMounted
@@ -121,14 +130,25 @@ export default function CreateProductModal() {
               </div>
               <div style={{ textAlign: "center", marginBottom: "1rem" }}>
                 <InputLabel htmlFor="category">Category</InputLabel>
-                <TextField
-                  onChange={(e) => setCategory(e.target.value)}
-                  value={category}
-                  required
-                  id="category"
-                  vatiant=" outlined"
-                  placeholder=""
-                />
+            
+                  <Select
+        labelId="demo-select-small-label"
+        id="demo-select-small"
+        value={category}
+        label="Age"
+        onChange={(e) => setCategory(e.target.value)}
+      >
+        <MenuItem value="">
+          <em>Select Category</em>
+        </MenuItem>
+        {categoryList.map((item)=>(
+ <MenuItem value={item.id}> <img src={item.image} style={{width:'50px' ,height:"50px"}}/>{item.name}</MenuItem>
+        ))
+
+        }
+       
+  
+      </Select>
               </div>
               <div style={{ textAlign: "center", marginBottom: "1rem" }}>
                 <InputLabel htmlFor="price">Price</InputLabel>
@@ -171,6 +191,7 @@ export default function CreateProductModal() {
                   onChange={(e) => setImg(e.target.files[0])}
                   type="file"
                   hidden
+                  required
                 />
               </Button>
               <Button

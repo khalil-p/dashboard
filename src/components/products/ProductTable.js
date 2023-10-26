@@ -99,6 +99,7 @@ export default function ProductTable() {
             formValues={selectedValues}
           />
         )}
+        <CreateProductModal/>
         <div style={{ height: 400, width: "100%" }}>
           <DataGrid
             rows={rows}
