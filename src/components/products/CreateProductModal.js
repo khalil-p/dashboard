@@ -26,7 +26,7 @@ const style = {
   justifyContent: "center",
 };
 
-export default function CreateProductModal() {
+export default function CreateProductModal({fetchData}) {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("6423277c8093130c17b374e3");
   const [price, setPrice] = useState("");
@@ -69,6 +69,8 @@ export default function CreateProductModal() {
         if (res.status === 201 || res.status === 200) {
           notify = () => {
             toast("Product Added Successfully");
+            setOpen(false)
+            fetchData()
           };
           notify();
         } else {

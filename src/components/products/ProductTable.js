@@ -6,6 +6,7 @@ import { adminServices } from "../../services/admin.services";
 import { Avatar, Button } from "@mui/material";
 import CreateProductModal from "./CreateProductModal";
 import UpdateProductModal from "./UpdateProductModal";
+import { toast } from "react-toastify";
 
 export default function ProductTable() {
   const [open, setOpen] = useState(false);
@@ -37,13 +38,19 @@ export default function ProductTable() {
               color="primary"
               style={{ marginRight: "10px" }}
               onClick={() => {
-                setOpen(true)
+                setOpen(true);
                 setSelectedValues(params.row);
               }}
             >
               Edit
             </Button>
-            <Button variant="contained" color="secondary">
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={async () => {
+                await deleteCategory(params.row._id);
+              }}
+            >
               Delete
             </Button>
           </div>
@@ -61,21 +68,28 @@ export default function ProductTable() {
   const [jsonData, setJsonData] = useState([]);
   const [rows, setRows] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchProductsList = async () => {
-      const data = await adminServices.getAllProducts().then((res) => {
-        console.log(res.data.Products);
-        const row1 = res.data.Products.map((item, index) => {
-          return { id: index + 1, ...res.data.Products[index] };
-        });
-        setJsonData(res.data.Products);
-        setRows(row1);
+  const fetchProductsList = async () => {
+    const data = await adminServices.getAllProducts().then((res) => {
+      const row1 = res.data.Products.map((item, index) => {
+        return { id: index + 1, ...res.data.Products[index] };
       });
-    };
-    fetchProductsList();
+      setJsonData(res.data.Products);
+      setRows(row1);
+    });
     setIsLoading(false);
+  };
+  useEffect(() => {
+    fetchProductsList();
   }, []);
+  const deleteCategory = async (id) => {
+    try {
+      await adminServices.deleteProduct(id);
+      toast("Successfully Delete");
+      fetchProductsList();
+    } catch (error) {
+      toast(error);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -97,20 +111,20 @@ export default function ProductTable() {
             open={open}
             setOpen={setOpen}
             formValues={selectedValues}
+            setSelectedValues={setSelectedValues}
           />
         )}
-        <CreateProductModal/>
-        <div style={{ height: 400, width: "100%" }}>
+        <CreateProductModal fetchData={fetchProductsList} />
+        <div style={{ height: 600, width: "100%" }}>
           <DataGrid
             rows={rows}
             columns={columns}
             initialState={{
               pagination: {
-                paginationModel: { page: 0, pageSize: 5 },
+                paginationModel: { page: 0, pageSize: 10 },
               },
             }}
             pageSizeOptions={[5, 10]}
-        
           />
         </div>
       </>

@@ -26,7 +26,7 @@ const style = {
   justifyContent: "center",
 };
 
-export default function UpdateProductModal({ open, setOpen, formValues }) {
+export default function UpdateProductModal({ open, setOpen, formValues  ,setSelectedValues}) {
   const [name, setName] = useState(formValues.name);
   const [category, setCategory] = useState(formValues.category);
   const [price, setPrice] = useState(formValues.price);
@@ -62,6 +62,9 @@ export default function UpdateProductModal({ open, setOpen, formValues }) {
             toast("Product Added Successfully");
           };
           notify();
+          setSelectedValues(null)
+          setOpen(false)
+
         } else {
           console.log("something went wrong");
         }

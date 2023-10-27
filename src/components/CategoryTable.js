@@ -45,7 +45,6 @@ export default function CategoryTable() {
   const [isLoading, setIsLoading] = useState(true);
   const fetchProductsList = async () => {
     const data = await adminServices.getAllCategories().then((res) => {
-      console.log(res.data.categories);
       const row1 = res.data.categories.map((item, index) => {
         return { srNo: index + 1, ...res.data.categories[index] };
       });
@@ -90,16 +89,16 @@ export default function CategoryTable() {
         }}
       >
         <div className="addCategoryButton">
-          <KeepMountedModal />
+          <KeepMountedModal fetchProductsList={fetchProductsList} />
         </div>
       </div>
-      <div style={{ height: 400, width: "100%" }}>
+      <div style={{ height: 600, width: "100%" }}>
         <DataGrid
           rows={rows}
           columns={columns}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 5 },
+              paginationModel: { page: 0, pageSize: 10 },
             },
           }}
           pageSizeOptions={[5, 10]}

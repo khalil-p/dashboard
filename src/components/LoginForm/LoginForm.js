@@ -26,7 +26,7 @@ function LoginForm() {
       console.log("token", res.data.data.data.token)
       localStorage.setItem("token", JSON.stringify(res.data.data.data.token))
       if (localStorage.getItem("token") !== undefined) {
-        navigate('/')
+        navigate('/dashBoard')
       } else {
         alert('Login UnSuccessful');
       }

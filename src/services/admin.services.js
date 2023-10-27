@@ -1,6 +1,6 @@
 import axios from "axios";
-const baseUrl = 'http://localhost:3002'
-// const baseUrl = "https://madni-food-app.vercel.app";
+// const baseUrl = "http://localhost:3002";
+const baseUrl = "https://madni-food-app.vercel.app";
 const getAllCategories = async () => {
   try {
     const token = JSON.parse(localStorage.getItem("token"));
@@ -18,7 +18,11 @@ const getAllCategories = async () => {
 
 const addCategory = async (formData) => {
   try {
-    return await axios.post(`${baseUrl}/api/addCategory`, formData);
+    const token = JSON.parse(localStorage.getItem("token"));
+
+    return await axios.post(`${baseUrl}/api/addCategory`, formData, {
+      headers: { Authorization: token },
+    });
   } catch (error) {
     console.log(error);
     return error;
@@ -28,7 +32,6 @@ const addCategory = async (formData) => {
 const getAllProducts = async () => {
   try {
     const { data } = await axios.get(`${baseUrl}/api/getAllProducts`);
-    console.log(data);
     return data;
   } catch (error) {
     return error;
@@ -133,6 +136,19 @@ const deleteCategory = async (id) => {
     return error;
   }
 };
+const deleteProduct = async (id) => {
+  try {
+    const token = JSON.parse(localStorage.getItem("token"));
+    const result = await axios.put(
+      `${baseUrl}/api/removeProduct?id=${id}`,
+      {},
+      { headers: { Authorization: token } }
+    );
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
 const deleteDelevryBoy = async (id) => {
   try {
     const token = JSON.parse(localStorage.getItem("token"));
@@ -178,5 +194,6 @@ export let adminServices = {
   pendingOrderList: pendingOrderList,
   updateProduct,
   deleteCategory,
-  deleteDelevryBoy
+  deleteDelevryBoy,
+  deleteProduct,
 };
