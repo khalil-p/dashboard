@@ -1,19 +1,19 @@
-import React from 'react'
-import './sidebar.css'
-import { Link } from 'react-router-dom'
-import { TreeView, TreeItem } from '@mui/lab'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import PostAddIcon from '@mui/icons-material/PostAdd'
-import AddIcon from '@mui/icons-material/Add'
-import ImportExportIcon from '@mui/icons-material/ImportExport'
-import ListAltIcon from '@mui/icons-material/ListAlt'
-import DashboardIcon from '@mui/icons-material/Dashboard'
-import PeopleIcon from '@mui/icons-material/People'
-import LogoutIcon from '@mui/icons-material/Logout'
-import { adminServices } from '../services/admin.services'
-import { useNavigate } from 'react-router-dom'
+import React from "react";
+import "./sidebar.css";
+import { Link } from "react-router-dom";
+import { TreeView, TreeItem } from "@mui/lab";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import PostAddIcon from "@mui/icons-material/PostAdd";
+import AddIcon from "@mui/icons-material/Add";
+import ImportExportIcon from "@mui/icons-material/ImportExport";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import PeopleIcon from "@mui/icons-material/People";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { adminServices } from "../services/admin.services";
+import { useNavigate } from "react-router-dom";
 function SideBar() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <div className="sidebar">
       <Link to="/dashBoard">
@@ -70,12 +70,7 @@ function SideBar() {
           Orders
         </p>
       </Link>
-      <Link to="/admin/users">
-        <p>
-          <PeopleIcon />
-          Users
-        </p>
-      </Link>
+
       <Link>
         <TreeView
           defaultCollapseIcon={<ExpandMoreIcon />}
@@ -92,17 +87,20 @@ function SideBar() {
               // onClick={adminServices.deliveryBoyRegister}
               to="dashBoard/deliveryBoyList"
             >
-              <TreeItem nodeId="3" label="Delivery Boy List" icon={<PostAddIcon />} />
+              <TreeItem
+                nodeId="3"
+                label="Delivery Boy List"
+                icon={<PostAddIcon />}
+              />
             </Link>
           </TreeItem>
-
         </TreeView>
       </Link>
       <Link
         to="/login"
         onClick={() => {
-          localStorage.removeItem('token')
-          navigate('/login')
+          localStorage.removeItem("token");
+          navigate("/login");
         }}
       >
         <p>
@@ -110,8 +108,17 @@ function SideBar() {
           Logout
         </p>
       </Link>
+      <Link
+        to="https://prabhavatids.com/"
+        target="_blank"
+    
+      >
+     <img src={require('../assets/PBN.png')} style={{width:'150px'}}/>
+     <p>+919420114282</p>
+      </Link>
+
     </div>
-  )
+  );
 }
 
-export default SideBar
+export default SideBar;
