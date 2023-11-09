@@ -70,8 +70,15 @@ function SideBar() {
           Orders
         </p>
       </Link>
+      <Link to="dashBoard/OrderHistory">
+        <p>
+          <ListAltIcon />
+        Daily Order History
+        </p>
+      </Link>
 
       <Link>
+      
         <TreeView
           defaultCollapseIcon={<ExpandMoreIcon />}
           defaultExpandIcon={<ImportExportIcon />}

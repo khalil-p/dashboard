@@ -49,7 +49,7 @@ export default function OrderHistory() {
                 <TableCell align="center">{row.fat}</TableCell>
                 <TableCell align="center">{row.carbs}</TableCell>
                 <TableCell align="center">{row.protein}</TableCell>
-                <TableCell align="center">{row.last && <button onClick={()=> navigate('OrderDetails')}>Order Details</button>}</TableCell>
+                <TableCell align="center">{row.last && <button onClick={()=> navigate('/dashBoard/OrderDetails')}>Order Details</button>}</TableCell>
               </TableRow>
             ))}
           </TableBody>

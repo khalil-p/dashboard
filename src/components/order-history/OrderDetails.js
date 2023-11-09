@@ -9,17 +9,16 @@ import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router";
 
 function createData(sr, name, calories, fat, carbs, protein) {
-  return { sr, name, calories, fat, carbs, protein,};
+  return { sr, name, calories, fat, carbs, protein };
 }
 
 const rows = [
-  createData(1, "Shwrma",4 , 80, "5/4/2022 (Monday)", 320,),
-  createData(2, "Chicken 65",1 , 180, "5/4/2022 (Monday)", 2,),
-  createData(3, "Chicken Mughlai", 1, 250, "5/4/2022 (Monday)", 2,),
+  createData(1, "Shwrma", 4, 80, "5/4/2022 (Monday)", 320),
+  createData(2, "Chicken 65", 1, 180, "5/4/2022 (Monday)", 2),
+  createData(3, "Chicken Mughlai", 1, 250, "5/4/2022 (Monday)", 2),
 ];
 
 export default function OrderDetails() {
-
   return (
     <div>
       <h1> Order Details</h1>
@@ -53,8 +52,16 @@ export default function OrderDetails() {
           </TableBody>
         </Table>
       </TableContainer>
-      <div>
-        <p style={{  display: 'flex',justifyContent: 'end', marginRight: '18rem'}}>Total Orders Completed Amount by TURAB KHAN <span>600</span></p>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "end",
+          gap: "5rem",
+          padding: "1rem",
+        }}
+      >
+        <p>Total Orders Completed Amount by TURAB KHAN</p>{" "}
+        <p style={{ fontWeight: 600 }}>600</p>
       </div>
     </div>
   );
