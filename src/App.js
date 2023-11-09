@@ -9,6 +9,8 @@ import DeliveryBoyRegister from './components/DeliveryBoy/DeliveryBoyRegister';
 import DashBoardDetails from './components/DashBoardDetails';
 import DeliveryBoyList from './components/DeliveryBoy/DeliveryBoyList';
 import OrderTabs from './components/Oders/OrderTabs';
+import OrderHistory from './components/order-history/OrderHistory.js';
+import OrderDetails from './components/order-history/OrderDetails.js';
 function App() {
   // adminServices.deliveryBoyRegister()
   // Set the timeout duration in minutes (e.g. 30 minutes)
@@ -48,6 +50,10 @@ function App() {
           <Route path="dashBoard/deliveryBoyRegister" element={<ProtectedRoute component={<DeliveryBoyRegister />} />} />
           <Route path="dashBoard/deliveryBoyList" element={<ProtectedRoute component={<DeliveryBoyList />} />} />
           <Route path="dashBoard/orders" element={<ProtectedRoute component={< OrderTabs />} />} />
+          <Route path="dashBoard/OrderHistory" element={<ProtectedRoute component={< OrderHistory />} />} />
+          <Route path="dashBoard/OrderDetails" element={<ProtectedRoute component={< OrderDetails />} />} />
+
+
         </Route>
       </Routes>
     </Router>
