@@ -1,6 +1,6 @@
 import axios from "axios";
-// const baseUrl = "http://localhost:3002";
-const baseUrl = "https://madni-food-app.vercel.app";
+const baseUrl = "http://localhost:3002";
+// const baseUrl = "https://madni-food-app.vercel.app";
 const getAllCategories = async () => {
   try {
     const token = JSON.parse(localStorage.getItem("token"));
@@ -123,6 +123,19 @@ const pendingOrderList = async () => {
     return error;
   }
 };
+const dailyOrderList = async () => {
+  try {
+    const token = JSON.parse(localStorage.getItem("token"));
+    console.log(token);
+    const result = await axios.get(
+      `${baseUrl}/api/getOrderDailyList`,
+      { headers: { Authorization: token } }
+    );
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
 const deleteCategory = async (id) => {
   try {
     const token = JSON.parse(localStorage.getItem("token"));
@@ -196,4 +209,5 @@ export let adminServices = {
   deleteCategory,
   deleteDelevryBoy,
   deleteProduct,
+  dailyOrderList
 };
