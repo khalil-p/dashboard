@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,18 +7,32 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router";
+import { adminServices } from "../../services/admin.services";
 
-function createData(sr, name, calories, fat, carbs, protein) {
-  return { sr, name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData(1, "Shwrma", 4, 80, "5/4/2022 (Monday)", 320),
-  createData(2, "Chicken 65", 1, 180, "5/4/2022 (Monday)", 2),
-  createData(3, "Chicken Mughlai", 1, 250, "5/4/2022 (Monday)", 2),
-];
 
 export default function OrderDetails() {
+  const [jsonData, setJsonData] = useState([]);
+  const [rows, setRows] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
+    const navigate = useNavigate();
+    // /api/getOrderDailyLis
+    const fetchProductsList = async () => {
+      const data = await adminServices.getDeleveryDailyList("6550efae6e62379c90a2d342").then((res) => {
+        console.log(res ,"result");
+          const row1 = res.data.data.map((item, index) => {
+              return { id: index + 1, ...item };
+          });
+          console.log(row1  ,"Order");
+
+          // setJsonData(res.data.data.orders);
+          setRows(row1);
+      });
+  };
+    useEffect(() => {
+  
+      fetchProductsList();
+      setIsLoading(false)
+  }, []);
   return (
     <div>
       <h1> Order Details</h1>
@@ -40,13 +54,13 @@ export default function OrderDetails() {
             {rows.map((row) => (
               <TableRow key={row.name} sx={{ "": { border: 0 } }}>
                 <TableCell component="th" scope="row">
-                  {row.sr}
+                  {row.id}
                 </TableCell>
-                <TableCell align="center">{row.name}</TableCell>
-                <TableCell align="center">{row.calories}</TableCell>
-                <TableCell align="center">{row.fat}</TableCell>
-                <TableCell align="center">{row.carbs}</TableCell>
-                <TableCell align="center">{row.protein}</TableCell>
+                <TableCell align="center">{row.cartItems[0].productId.name}</TableCell>
+                <TableCell align="center">{row.cartItems[0].quantity}</TableCell>
+                <TableCell align="center">{row.totalPrice}</TableCell>
+                <TableCell align="center">{row.date}</TableCell>
+                <TableCell align="center">{row.totalPrice + row.deleveryCharges}</TableCell>
               </TableRow>
             ))}
           </TableBody>
