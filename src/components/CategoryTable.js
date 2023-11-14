@@ -83,7 +83,6 @@ export default function CategoryTable() {
       <div
         className="addCategoryDiv"
         style={{
-          textAlign: "right",
           marginBottom: "1rem",
           marginRight: "1.4rem",
         }}

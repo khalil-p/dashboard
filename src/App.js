@@ -51,7 +51,7 @@ function App() {
           <Route path="dashBoard/deliveryBoyList" element={<ProtectedRoute component={<DeliveryBoyList />} />} />
           <Route path="dashBoard/orders" element={<ProtectedRoute component={< OrderTabs />} />} />
           <Route path="dashBoard/OrderHistory" element={<ProtectedRoute component={< OrderHistory />} />} />
-          <Route path="dashBoard/OrderDetails" element={<ProtectedRoute component={< OrderDetails />} />} />
+          <Route path="dashBoard/OrderDetails/:id" element={<ProtectedRoute component={< OrderDetails />} />} />
 
 
         </Route>

@@ -20,20 +20,16 @@ import { adminServices } from "../../services/admin.services";
 // ];
 
 export default function OrderHistory() {
-  const [jsonData, setJsonData] = useState([]);
   const [rows, setRows] = useState([]);
   const [isLoading, setIsLoading] = useState(true)
     const navigate = useNavigate();
     // /api/getOrderDailyLis
     const fetchProductsList = async () => {
       const data = await adminServices.dailyOrderList().then((res) => {
-        console.log(res ,"result");
           const row1 = res.data.data.map((item, index) => {
               return { id: index + 1, ...item };
           });
-          console.log(row1  ,"Order");
 
-          // setJsonData(res.data.data.orders);
           setRows(row1);
       });
   };
@@ -71,8 +67,9 @@ export default function OrderHistory() {
                 <TableCell align="center">{row.acceptedCount}</TableCell>
                 <TableCell align="center">{row.cancelledCount}</TableCell>
                 <TableCell align="center">{row.completedCount}</TableCell>
-                <TableCell align="center"> <button onClick={()=> navigate('/dashBoard/OrderDetails')}>Order Details</button></TableCell>
-              </TableRow>
+                <button onClick={() => navigate(`/dashBoard/OrderDetails/${row._id?.id}`)}>
+    Order Details
+  </button>              </TableRow>
             ))}
           </TableBody>
         </Table>
