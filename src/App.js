@@ -11,6 +11,8 @@ import DeliveryBoyList from './components/DeliveryBoy/DeliveryBoyList';
 import OrderTabs from './components/Oders/OrderTabs';
 import OrderHistory from './components/order-history/OrderHistory.js';
 import OrderDetails from './components/order-history/OrderDetails.js';
+import PrivacyPolicy from './components/privacy-policy/PrivacyPolicy.js';
+import TermsAndConditions from './components/privacy-policy/TermsAndConditions.js';
 function App() {
   // adminServices.deliveryBoyRegister()
   // Set the timeout duration in minutes (e.g. 30 minutes)
@@ -42,6 +44,9 @@ function App() {
   return (
     <Router>
       <Routes>
+      
+        <Route path='privacy-policy' element={<PrivacyPolicy />} />
+        <Route path='terms-and-conditions' element={<TermsAndConditions />} />
         <Route path='login' element={<LoginForm />} />
         <Route path="/" element={<ProtectedRoute component={<Dashboard />} />} >
           <Route path="dashBoard/productList" element={<ProtectedRoute component={<ProductTable />} />} />
