@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,19 +7,37 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router";
+import { adminServices } from "../../services/admin.services";
 
-function createData(sr, name, calories, fat, carbs, protein, last) {
-  return { sr, name, calories, fat, carbs, protein, last };
-}
+// function createData(sr, name, calories, fat, carbs, protein, last) {
+//   return { sr, name, calories, fat, carbs, protein, last };
+// }
 
-const rows = [
-  createData(1, "Laiq", "5/4/2022", 5, 4, 2, true),
-  createData(2, "Rizwan", "5/4/2022", 5, 4, 2,<h3>Order Details</h3>),
-  createData(3, "Ayan", "5/4/2022", 5, 4, 2,<h3>Order Details</h3>),
-];
+// const rows = [
+//   createData(1, "Laiq", "5/4/2022", 5, 4, 2, true),
+//   createData(2, "Rizwan", "5/4/2022", 5, 4, 2,<h3>Order Details</h3>),
+//   createData(3, "Ayan", "5/4/2022", 5, 4, 2,<h3>Order Details</h3>),
+// ];
 
 export default function OrderHistory() {
+  const [rows, setRows] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
     const navigate = useNavigate();
+    // /api/getOrderDailyLis
+    const fetchProductsList = async () => {
+      const data = await adminServices.dailyOrderList().then((res) => {
+          const row1 = res.data.data.map((item, index) => {
+              return { id: index + 1, ...item };
+          });
+
+          setRows(row1);
+      });
+  };
+    useEffect(() => {
+  
+      fetchProductsList();
+      setIsLoading(false)
+  }, []);
 
   return (
     <>
@@ -42,15 +60,16 @@ export default function OrderHistory() {
             {rows.map((row) => (
               <TableRow key={row.name} sx={{ "": { border: 0 } }}>
                 <TableCell component="th" scope="row">
-                  {row.sr}
+                  {row.id}
                 </TableCell>
-                <TableCell align="center">{row.name}</TableCell>
+                <TableCell align="center">{row?._id?.deliveryBoy}</TableCell>
                 <TableCell align="center">{row.calories}</TableCell>
-                <TableCell align="center">{row.fat}</TableCell>
-                <TableCell align="center">{row.carbs}</TableCell>
-                <TableCell align="center">{row.protein}</TableCell>
-                <TableCell align="center">{row.last && <button onClick={()=> navigate('OrderDetails')}>Order Details</button>}</TableCell>
-              </TableRow>
+                <TableCell align="center">{row.acceptedCount}</TableCell>
+                <TableCell align="center">{row.cancelledCount}</TableCell>
+                <TableCell align="center">{row.completedCount}</TableCell>
+                <button onClick={() => navigate(`/dashBoard/OrderDetails/${row._id?.id}`)}>
+    Order Details
+  </button>              </TableRow>
             ))}
           </TableBody>
         </Table>

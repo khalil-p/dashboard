@@ -44,7 +44,7 @@ function SideBar() {
             >
               <TreeItem nodeId="3" label="Category" icon={<PostAddIcon />} />
             </Link>
-            <TreeView
+            {/* <TreeView
               defaultCollapseIcon={<ExpandMoreIcon />}
               defaultExpandIcon={<ImportExportIcon />}
             >
@@ -60,7 +60,7 @@ function SideBar() {
                   />
                 </Link>
               </TreeItem>
-            </TreeView>
+            </TreeView> */}
           </TreeItem>
         </TreeView>
       </Link>
@@ -70,8 +70,15 @@ function SideBar() {
           Orders
         </p>
       </Link>
+      <Link to="dashBoard/OrderHistory">
+        <p>
+          <ListAltIcon />
+        Daily Order History
+        </p>
+      </Link>
 
       <Link>
+      
         <TreeView
           defaultCollapseIcon={<ExpandMoreIcon />}
           defaultExpandIcon={<ImportExportIcon />}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -6,24 +6,45 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { useNavigate } from "react-router";
-
-function createData(sr, name, calories, fat, carbs, protein) {
-  return { sr, name, calories, fat, carbs, protein,};
-}
-
-const rows = [
-  createData(1, "Shwrma",4 , 80, "5/4/2022 (Monday)", 320,),
-  createData(2, "Chicken 65",1 , 180, "5/4/2022 (Monday)", 2,),
-  createData(3, "Chicken Mughlai", 1, 250, "5/4/2022 (Monday)", 2,),
-];
+import { useParams } from "react-router";
+import { adminServices } from "../../services/admin.services";
 
 export default function OrderDetails() {
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [rows, setRows] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { id } = useParams();
+  // /api/getOrderDailyLis
+  const fetchProductsList = async () => {
+    const data = await adminServices
+      .getDeleveryDailyList(id)
+      .then((res) => {
+        const row1 = res.data.data.map((item, index) => {
+          const rowTotal = item.totalPrice + item.deleveryCharges
+          console.log(item ,'item');
+          console.log(rowTotal ,"rowTotal");
+          setTotalAmount(totalAmount + rowTotal);
+          return { id: index + 1, ...item };
+        });
+
+        // setJsonData(res.data.data.orders);
+        setRows(row1);
+      });
+  };
+  useEffect(() => {
+    fetchProductsList();
+    setIsLoading(false);
+  }, []);
+  const today = new Date();
+  const dd = String(today.getDate()).padStart(2, "0");
+  const mm = String(today.getMonth() + 1).padStart(2, "0"); // January is 0!
+  const yyyy = today.getFullYear();
+  const current_date = dd + "/" + mm + "/" + yyyy;
 
   return (
     <div>
       <h1> Order Details</h1>
-      <h3>Date:22-02-2023 sunday</h3>
+      <h3>{current_date}</h3>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -38,23 +59,40 @@ export default function OrderDetails() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.name} sx={{ "": { border: 0 } }}>
-                <TableCell component="th" scope="row">
-                  {row.sr}
-                </TableCell>
-                <TableCell align="center">{row.name}</TableCell>
-                <TableCell align="center">{row.calories}</TableCell>
-                <TableCell align="center">{row.fat}</TableCell>
-                <TableCell align="center">{row.carbs}</TableCell>
-                <TableCell align="center">{row.protein}</TableCell>
-              </TableRow>
-            ))}
+            {rows.map((row) => {
+        
+              return (
+                <TableRow key={row.name} sx={{ "": { border: 0 } }}>
+                  <TableCell component="th" scope="row">
+                    {row.id}
+                  </TableCell>
+                  <TableCell align="center">
+                    {row.cartItems[0].productId.name}
+                  </TableCell>
+                  <TableCell align="center">
+                    {row.cartItems[0].quantity}
+                  </TableCell>
+                  <TableCell align="center">{row.totalPrice}</TableCell>
+                  <TableCell align="center">{row.date}</TableCell>
+                  <TableCell align="center">
+                    {row.totalPrice + row.deleveryCharges}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </TableContainer>
-      <div>
-        <p style={{  display: 'flex',justifyContent: 'end', marginRight: '18rem'}}>Total Orders Completed Amount by TURAB KHAN <span>600</span></p>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "end",
+          gap: "5rem",
+          padding: "1rem",
+        }}
+      >
+        <p>Total Orders Completed Amount </p>{" "}
+        <p style={{ fontWeight: 600 }}>{totalAmount}</p>
       </div>
     </div>
   );
