@@ -1,5 +1,5 @@
 import axios from "axios";
-// const baseUrl = "http://localhost:3002";
+// const baseUrl = "http://localhost:3002";  
 const baseUrl = "https://madni-food-app.vercel.app";
 const getAllCategories = async () => {
   try {

@@ -38,7 +38,7 @@ const TermsAndConditions = () => {
       <p>{termsData.term8}</p>
 
       <h2>Contact Us</h2>
-      <p>If you have any questions or concerns about these Terms and Conditions, please contact us at <a href="#">[contact information]</a>.</p>
+      <p>If you have any questions or concerns about these Terms and Conditions, please contact us at <a href="#">9011198855</a>.</p>
     </div>
   );
 }

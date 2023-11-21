@@ -10,6 +10,7 @@ import { Input, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import "./createProductModal.css";
 import { adminServices } from "../../services/admin.services";
+import { convertIntoBase64 } from "../upload-img/convert";
 const style = {
   position: "absolute",
   top: "50%",
@@ -85,6 +86,12 @@ export default function CreateProductModal({fetchData}) {
         notify();
       });
   }
+  const onUpload = async (e) => {
+    console.log(e);
+    const base64 = await convertIntoBase64(e.target.files[0]);
+    console.log(base64);
+    setImg(base64);
+  };
 
   return (
     <>
@@ -190,7 +197,7 @@ export default function CreateProductModal({fetchData}) {
                 Upload File
                 <Input
                   className="imgInput"
-                  onChange={(e) => setImg(e.target.files[0])}
+                  onChange={onUpload}
                   type="file"
                   hidden
                   required

@@ -41,7 +41,7 @@ const PrivacyPolicy = () => {
       <p>{data.changesToPrivacyPolicy}</p>
 
       <h2>Contact Us</h2>
-      <p>If you have any questions or concerns about this Privacy Policy, please contact us at <a href="#">[contact information]</a>.</p>
+      <p>If you have any questions or concerns about this Privacy Policy, please contact us at <a href="#">9011198855</a>.</p>
     </div>
   );
 }

@@ -16,20 +16,17 @@ export default function OrderDetails() {
   const { id } = useParams();
   // /api/getOrderDailyLis
   const fetchProductsList = async () => {
-    const data = await adminServices
-      .getDeleveryDailyList(id)
-      .then((res) => {
-        const row1 = res.data.data.map((item, index) => {
-          const rowTotal = item.totalPrice + item.deleveryCharges
-          console.log(item ,'item');
-          console.log(rowTotal ,"rowTotal");
-          setTotalAmount(totalAmount + rowTotal);
-          return { id: index + 1, ...item };
-        });
-
-        // setJsonData(res.data.data.orders);
-        setRows(row1);
+    const data = await adminServices.getDeleveryDailyList(id).then((res) => {
+      const row1 = res.data.data.map((item, index) => {
+        return { id: index + 1, ...item };
       });
+
+      const totalAmount = res.data.data.reduce((accumulator, item, index) => {
+        return accumulator + item.totalPrice + item.deleveryCharges;
+      }, 0);
+      setTotalAmount(totalAmount); // setJsonData(res.data.data.orders);
+      setRows(row1);
+    });
   };
   useEffect(() => {
     fetchProductsList();
@@ -60,7 +57,6 @@ export default function OrderDetails() {
           </TableHead>
           <TableBody>
             {rows.map((row) => {
-        
               return (
                 <TableRow key={row.name} sx={{ "": { border: 0 } }}>
                   <TableCell component="th" scope="row">
