@@ -5,7 +5,7 @@ h1 {
   }
 
   h2 {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     color: #555;
   }
 
@@ -13,7 +13,9 @@ h1 {
     line-height: 1.5;
     margin: 1rem 20px;
   }
-
+.privacy-heading{
+  font-size: 1.3vw !important;
+}
   /* Container styles */
   .container {
     max-width: 800px;
