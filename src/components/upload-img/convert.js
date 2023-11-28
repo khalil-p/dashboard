@@ -12,7 +12,6 @@ export function convertIntoBase64(file) {
        })
           .then(resp => resp.json())
           .then(data => {
-             console.log(data?.secure_url);
              resolve(data?.secure_url)
           })
           .catch(err => reject(err))

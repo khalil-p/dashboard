@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import { Input, InputLabel, TextField } from "@mui/material";
 import "./createModal.css";
 import { adminServices } from "../services/admin.services";
+import { convertIntoBase64 } from "./upload-img/convert";
 const style = {
   position: "absolute",
   top: "50%",
@@ -32,16 +33,25 @@ export default function KeepMountedModal({ fetchProductsList }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const onUpload = async (e) => {
+    console.log(e);
+    const base64 = await convertIntoBase64(e.target.files[0]);
+    console.log(base64);
+    setImg(base64);
+  };
   let notify;
 
   async function getFormData(e) {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("image", img);
-    formData.append("name", name);
-    formData.append("adminid", adminid);
+
+    const payload ={
+      name: name,
+      image: img 
+    }
+
     const data = await adminServices
-      .addCategory(formData)
+      .addCategory(payload)
       .then((res) => {
         console.log("this is status.......", res.status);
         if (res.status === 201 || res.status === 200) {
@@ -127,7 +137,7 @@ export default function KeepMountedModal({ fetchProductsList }) {
                 Upload File
                 <Input
                   className="imgInput"
-                  onChange={(e) => setImg(e.target.files[0])}
+                  onChange={onUpload}
                   type="file"
                   hidden
                 />
