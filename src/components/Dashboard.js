@@ -27,7 +27,7 @@ function Dashboard() {
       >
         <div style={{display:'flex' ,justifyContent:'center' ,padding:'1rem'}}>
 
-        <img src="https://res.cloudinary.com/dr01qtrz5/image/upload/e_improve:outdoor/odzju1vmjidrrok3ciug.jpg" style={{width:'300px'}}/>
+        <img src="https://res.cloudinary.com/dr01qtrz5/image/upload/e_improve:outdoor/odzju1vmjidrrok3ciug.jpg" style={{width:'20vw'}}/>
         </div>
 
         <Outlet />

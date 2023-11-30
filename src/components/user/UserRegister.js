@@ -11,52 +11,41 @@ const initialValues = {
   lastName: "",
   email: "",
   mobile: "",
-  password: "",
+  description: "",
   deviceToken: "e",
 }
-const DeliveryBoyRegister = () => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    mobile: "",
-    password: "",
-  });
+const UserRegister = () => {
+
   let validationSchema = Yup.object().shape({
     firstName: Yup.string().required("Required"),
     lastName: Yup.string().required("Required"),
     email: Yup.string().email("Invalid email").required("Required"),
-    password: Yup.string().required("Required"),
+    description: Yup.string().required("Required"),
     mobile: Yup.string().required("Moblie Required"),
 
   })
   
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+
   let notify;
 
   const handleSubmit = async (values , { resetForm }) => {
     console.log(values);
     try {
       const response = await axios.post(
-        "https://madni-food-app.vercel.app/api/delivery/register",
+        "https://madni-food-app.vercel.app/api/deleteRequest",
         values
       );
       // if(response.data.data.status===200 || response.data.data.status===201){
       //   alert('Delivery Boy Registration Successful')
       // }
+      console.log(response);
       if (
-        response.data.data.status === 200 ||
+        response.data.status === 200 ||
         response.data.data.status === 201
       ) {
         notify = () => {
-          toast("DeliveryBoy Added Successfully");
+          toast("Your Request Has been Sent For Verification ");
         };
         notify();
         resetForm()
@@ -65,9 +54,9 @@ const DeliveryBoyRegister = () => {
       }
       console.log(response.data); // handle success response
     } catch (error) {
-      console.log(error.response.data.message); // handle error response
+      console.log(error.response.data.data.message); // handle error response
       notify = () => {
-        toast("An Error Occured");
+        toast(error.response.data.data.message);
       };
       notify();
     }
@@ -78,85 +67,12 @@ const DeliveryBoyRegister = () => {
   return (
     <>
       <Grid container  justifyContent="center">
-        <h1 style={{fontSize:'2vw'}}>Delivery Boy Registon</h1>
-        {/* <form onSubmit={handleSubmit}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                name="firstName"
-                label="First Name"
-                value={formData.firstName}
-                onChange={handleChange}
-                fullWidth
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                name="lastName"
-                label="Last Name"
-                value={formData.lastName}
-                onChange={handleChange}
-                fullWidth
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                name="email"
-                label="Email"
-                value={formData.email}
-                onChange={handleChange}
-                fullWidth
-                required
-                type="email"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                name="mobile"
-                label="Mobile"
-                value={formData.mobile}
-                onChange={handleChange}
-                fullWidth
-                required
-                type="tel"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                name="password"
-                label="Password"
-                value={formData.password}
-                onChange={handleChange}
-                fullWidth
-                required
-                type="text"
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <TextField
-                name="deviceToken"
-                label="Device Token"
-                value={formData.deviceToken}
-                onChange={handleChange}
-                fullWidth
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={12}>
-            <Button variant="contained" color="primary" type="submit">
-              Register
-            </Button>
-            </Grid >
-          </Grid>
-        </form> */}
-
+        <h1 style={{fontSize:'2vw'}}>Application For Deleting user</h1>
+       
 <Grid container justifyContent="center" spacing={1}>
       <Grid item md={6}>
         <Card >
-          <CardHeader title="REGISTER FORM"></CardHeader>
+          <CardHeader title="Application FORM"></CardHeader>
           <Formik
             initialValues={initialValues}
             onSubmit={handleSubmit}
@@ -166,7 +82,7 @@ const DeliveryBoyRegister = () => {
               return (
                 <Form>
                   <CardContent>
-                    <Grid item container spacing={1} >
+                    <Grid item container spacing={4} >
                       <Grid item xs={12} sm={6} md={6}>
                         <Field
                          label=" Name"
@@ -182,9 +98,11 @@ const DeliveryBoyRegister = () => {
                           label="Last Name"
                           variant="outlined"
                           fullWidth
+                          
                           name="lastName"
                           value={values.lastName}
                           component={TextField}
+                          
                         />
                       </Grid>
                       <Grid item xs={12} sm={6} md={6}>
@@ -209,12 +127,11 @@ const DeliveryBoyRegister = () => {
                       </Grid>
                       <Grid item xs={12} sm={6} md={6}>
                         <Field
-                          label="Password"
+                          label="description"
                           variant="outlined"
                           fullWidth
-                          name="password"
-                          value={values.password}
-                          type="password"
+                          name="description"
+                          value={values.description}
                           component={TextField}
                         />
                       </Grid>
@@ -245,4 +162,4 @@ const DeliveryBoyRegister = () => {
   );
 };
 
-export default DeliveryBoyRegister;
+export default UserRegister;

@@ -75,7 +75,13 @@ function SideBar() {
           <ListAltIcon />
         Daily Order History
         </p>
+      </Link> 
+      <Link to="dashBoard/userList">
+        <p>
+User Request      
+        </p>
       </Link>
+
 
       <Link>
       

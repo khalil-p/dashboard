@@ -13,6 +13,8 @@ import OrderHistory from './components/order-history/OrderHistory.js';
 import OrderDetails from './components/order-history/OrderDetails.js';
 import PrivacyPolicy from './components/privacy-policy/PrivacyPolicy.js';
 import TermsAndConditions from './components/privacy-policy/TermsAndConditions.js';
+import UserList from './components/user/UserList.js';
+import UserRegister from './components/user/UserRegister.js';
 function App() {
   // adminServices.deliveryBoyRegister()
   // Set the timeout duration in minutes (e.g. 30 minutes)
@@ -47,6 +49,7 @@ function App() {
       
         <Route path='privacy-policy' element={<PrivacyPolicy />} />
         <Route path='terms-and-conditions' element={<TermsAndConditions />} />
+        <Route path='aplication' element={<UserRegister />} />
         <Route path='login' element={<LoginForm />} />
         <Route path="/" element={<ProtectedRoute component={<Dashboard />} />} >
           <Route path="dashBoard/productList" element={<ProtectedRoute component={<ProductTable />} />} />
@@ -54,6 +57,7 @@ function App() {
           <Route path="dashBoard/categoryList" element={<ProtectedRoute component={<CategoryTable />} />} />
           <Route path="dashBoard/deliveryBoyRegister" element={<ProtectedRoute component={<DeliveryBoyRegister />} />} />
           <Route path="dashBoard/deliveryBoyList" element={<ProtectedRoute component={<DeliveryBoyList />} />} />
+          <Route path="dashBoard/userList" element={<ProtectedRoute component={<UserList />} />} />
           <Route path="dashBoard/orders" element={<ProtectedRoute component={< OrderTabs />} />} />
           <Route path="dashBoard/OrderHistory" element={<ProtectedRoute component={< OrderHistory />} />} />
           <Route path="dashBoard/OrderDetails/:id" element={<ProtectedRoute component={< OrderDetails />} />} />

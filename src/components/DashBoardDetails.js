@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import { adminServices } from "../services/admin.services";
 
 function DashBoardDetails() {
+  const [dashboardData , setDashboardData] = useState({
+    user:0,
+    deliveryBoy:0,
+    order:0
+
+
+  })
+  const fetchProductsList = async () => {
+    const data = await adminServices.DashboardList().then((res) => {
+    setDashboardData({
+      user:res.data.data.userCount,
+      deliveryBoy:res.data.data.deliveryBoyCount,
+      order:res.data.data.completedOrderCount
+    })
+    });
+  };
+  useEffect(()=>{
+fetchProductsList()
+  },[])
   return (
     <div
       style={{
@@ -22,7 +42,7 @@ function DashBoardDetails() {
             </Typography>
             <br />
             <br />
-            <Typography variant="h4">00.00</Typography>
+            <Typography variant="h4">{dashboardData.user}</Typography>
           </CardContent>
         </Card>
         <Card
@@ -33,7 +53,7 @@ function DashBoardDetails() {
               Total Numbers of Workers
             </Typography>
             <br />
-            <Typography variant="h4">00.00</Typography>
+            <Typography variant="h4">{dashboardData.deliveryBoy}</Typography>
           </CardContent>
         </Card>
         <Card
@@ -45,7 +65,7 @@ function DashBoardDetails() {
             </Typography>
             <br />
             <br />
-            <Typography variant="h4">00.00</Typography>
+            <Typography variant="h4">{dashboardData.order}</Typography>
           </CardContent>
         </Card>
       </div>

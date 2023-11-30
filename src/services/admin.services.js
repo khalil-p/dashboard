@@ -81,6 +81,19 @@ const deliveryBoyList = async () => {
     return error;
   }
 };
+const DashboardList = async () => {
+  try {
+    const token = JSON.parse(localStorage.getItem("token"));
+    console.log(token);
+    const result = await axios.get(`${baseUrl}/api/getDashboardData`, {
+      headers: { Authorization: token },
+    });
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
 
 const completedOrderList = async () => {
   try {
@@ -149,6 +162,19 @@ const getDeleveryDailyList = async (id) => {
     return error;
   }
 };
+const getUserForDelete = async (id) => {
+  try {
+    const token = JSON.parse(localStorage.getItem("token"));
+    console.log(token);
+    const result = await axios.get(
+      `${baseUrl}/api/getUserForDelete`,
+      { headers: { Authorization: token } }
+    );
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
 const deleteCategory = async (id) => {
   try {
     const token = JSON.parse(localStorage.getItem("token"));
@@ -188,24 +214,19 @@ const deleteDelevryBoy = async (id) => {
     return error;
   }
 };
+const deleteUser = async (id) => {
+  try {
+    const token = JSON.parse(localStorage.getItem("token"));
+    const result = await axios.get(
+      `${baseUrl}/api/user/delete?id=${id}`,
+      { headers: { Authorization: token } }
+    );
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
 
-// const deliveryBoyRegister = async () =>{
-//     const deliveryBoyDetails = {
-//             "firstName":"khalil",
-//             "lastName":"pathan",
-//             "email":"pkhak@gmail.com",
-//             "mobile":"123478",
-//             "password":"admin13@",
-//             "deviceToken":"eZ8HqKz3Qm-r9qGd-v-oD7:APA91bHUdB8aYmlPXKoET6hr10MqwUZoftaoMTnRSg-bP-mdNEhROPv3oYgTkItElN47ziXOyjhWRxdYd-VO9yTrdQeTQCNx4Jrp24dojkaa3_CfvCv2cOo3gzBcMPCcmVq2BrV8PxsD"
-//     }
-//     try {
-//         const result = await axios.post("${baseUrl}/api/delivery/register", deliveryBoyDetails);
-//         console.log(result);
-//         return result
-//     } catch (error) {
-//         return error
-//     }
-// }
 
 export let adminServices = {
   getAllProducts: getAllProducts,
@@ -223,5 +244,8 @@ export let adminServices = {
   deleteDelevryBoy,
   deleteProduct,
   dailyOrderList,
-  getDeleveryDailyList
+  getDeleveryDailyList,
+  DashboardList,
+  getUserForDelete,
+  deleteUser
 };
