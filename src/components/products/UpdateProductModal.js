@@ -5,11 +5,29 @@ import "react-toastify/dist/ReactToastify.css";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { Input, InputLabel, TextField } from "@mui/material";
-import Avatar from "@mui/material/Avatar";
+import * as Yup from "yup";
+import { Circles } from "react-loader-spinner";
+import CloseIcon from "@mui/icons-material/Close";
+
+import {
+  CardActions,
+  CardContent,
+  Grid,
+  Input,
+  InputLabel,
+  MenuItem,
+  Select,
+  FormControl,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
 import "./createProductModal.css";
 import { adminServices } from "../../services/admin.services";
+import { convertIntoBase64 } from "../upload-img/convert";
+import { Formik, Form, Field } from "formik";
+import { TextField } from "formik-material-ui";
 const style = {
   position: "absolute",
   top: "50%",
@@ -27,29 +45,53 @@ const style = {
 };
 
 export default function UpdateProductModal({ open, setOpen, formValues  ,setSelectedValues}) {
-  const [name, setName] = useState(formValues.name);
-  const [category, setCategory] = useState(formValues.category);
-  const [price, setPrice] = useState(formValues.price);
-  const [discount, setDiscount] = useState(formValues.discount);
-  const [description, setDescription] = useState(formValues.description);
-  const [img, setImg] = useState(formValues.image);
-  // const [adminid, setAdminId] = useState('6416bb61115dc8d869fde3e1')
-  // const [tostMessage, setTostMessage] = useState('')
+  const [categoryList, setCategoryList] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const initialValues = {
+    name: formValues.name,
+    category: formValues.category,
+    price: formValues.price,
+    discount:formValues.discount,
+    description: formValues.description,
+    image: formValues.image,
+    details: [],
+  };
+  let validationSchema = Yup.object().shape({
+    name: Yup.string().required("Required"),
+    category: Yup.string().required("Required"),
+    description: Yup.string().required("Required"),
+    image: Yup.string().required("Required"),
+    price: Yup.string().required("Required"),
+    discount: Yup.string().required("Moblie Required"),
+  });
+  const fetchProductsList = async () => {
+    const data = await adminServices.getAllCategories().then((res) => {
+      console.log(res.data.categories, "categories ");
+
+      setCategoryList(res.data.categories);
+    });
+  };
+  useEffect(() => {
+    fetchProductsList();
+  }, []);
   const [response, setResponse] = useState(null);
 //   const [open, setOpen] = useState(false);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedValues(null)
+  }
   let notify;
 
-  async function getFormData(e) {
-    e.preventDefault();
+  async function handleSubmit(values) {
 
     const payload = {
-      name: name,
-      category: category,
-      price: price,
-      discount: discount,
-      description: description,
-      image: img,
+      name: values.name,
+      category: values.category,
+      price: values.price,
+      discount: values.discount,
+      description: values.description,
+      image: values.image,
       productId: formValues._id,
     };
     const data = await adminServices
@@ -87,103 +129,143 @@ export default function UpdateProductModal({ open, setOpen, formValues  ,setSele
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >
-        <Box
-          component="form"
-          onSubmit={getFormData}
-          Validate
-          autoComplete="off"
-          sx={style}
-        >
-          <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
-            Update Product Details
-          </Typography>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <div style={{ textAlign: "center", marginBottom: "1rem" }}>
-              <InputLabel htmlFor="name">Product Name</InputLabel>
-              <TextField
-                style={{ padding: "0.2rem" }}
-                onChange={(e) => setName(e.target.value)}
-                required
-                id="name"
-                value={name}
-                vatiant=" outlined"
-                placeholder=""
-              />
-            </div>
-            <div style={{ textAlign: "center", marginBottom: "1rem" }}>
-              <InputLabel htmlFor="category">Category</InputLabel>
-              <TextField
-                onChange={(e) => setCategory(e.target.value)}
-                value={category}
-                required
-                id="category"
-                vatiant=" outlined"
-                placeholder=""
-              />
-            </div>
-            <div style={{ textAlign: "center", marginBottom: "1rem" }}>
-              <InputLabel htmlFor="price">Price</InputLabel>
-              <TextField
-                onChange={(e) => setPrice(e.target.value)}
-                required
-                id="price"
-                vatiant=" outlined"
-                value={price}
-                placeholder=""
-              />
-            </div>
-            <div style={{ textAlign: "center", marginBottom: "1rem" }}>
-              <InputLabel htmlFor="discount">Discount</InputLabel>
-              <TextField
-                onChange={(e) => setDiscount(e.target.value)}
-                required
-                id="discount"
-                vatiant=" outlined"
-                placeholder=""
-                value={discount}
-              />
-            </div>
-            <div style={{ textAlign: "center", marginBottom: "1rem" }}>
-              <InputLabel htmlFor="description">Description</InputLabel>
-              <TextField
-                onChange={(e) => setDescription(e.target.value)}
-                required
-                id="description"
-                vatiant=" outlined"
-                placeholder=""
-                value={description}
-              />
-            </div>
+           <Box sx={style}>
             <Button
-              className="imageUpload"
-              variant="contained"
-              component="label"
+              onClick={handleClose}
+              style={{ position: "relative", left: "200px", bottom: "24px" }}
             >
-              Upload File
-              <Input
-                className="imgInput"
-                onChange={(e) => setImg(e.target.files[0])}
-                type="file"
-                hidden
+              <CloseIcon />
+            </Button>
+            {loading && (
+              <Circles
+                type="Oval"
+                color="#00BFFF"
+                height={50}
+                width={50}
+                style={{ marginTop: "5rem" }}
               />
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              sx={{ margin: "2rem" }}
+            )}
+            <Formik
+              initialValues={initialValues}
+              onSubmit={handleSubmit}
+              validationSchema={validationSchema}
             >
-              ADD
-            </Button>
-          </div>
-        </Box>
+              {({ dirty, isValid, values, setFieldValue }) => {
+                return (
+                  <Form>
+                    <CardContent>
+                      <Grid item container spacing={2}>
+                        <Grid item xs={12} sm={12} md={12}>
+                          <InputLabel>Product Name</InputLabel>
+                          <Field
+                            variant="outlined"
+                            fullWidth
+                            name="name"
+                            value={values.name}
+                            component={TextField}
+                          />
+                        </Grid>
+                        <Grid item xs={6} sm={6} md={6}>
+                          <div>
+                            <InputLabel htmlFor="category">Category</InputLabel>
+
+                            <Select
+                              labelId="category"
+                              id="category"
+                              fullWidth
+                              name="category"
+                              value={values.category}
+                              onChange={(e) =>
+                                setFieldValue("category", e.target.value)
+                              }
+                            >
+                              <MenuItem value="">
+                                <em>Select Category</em>
+                              </MenuItem>
+                              {categoryList.map((item) => (
+                                <MenuItem value={item.id}>
+                                  <img
+                                    src={item.image}
+                                    style={{ width: "50px", height: "50px" }}
+                                  />
+                                  {item.name}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </div>
+                        </Grid>
+                        <Grid item xs={6} sm={6} md={6}>
+                          <InputLabel htmlFor="description">
+                            description
+                          </InputLabel>
+                          <Field
+                            variant="outlined"
+                            fullWidth
+                            name="description"
+                            value={values.description}
+                            component={TextField}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <InputLabel>Price</InputLabel>
+                          <Field
+                            variant="outlined"
+                            fullWidth
+                            name="price"
+                            value={values.price}
+                            component={TextField}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <InputLabel>Discount</InputLabel>
+                          <Field
+                            variant="outlined"
+                            fullWidth
+                            name="discount"
+                            value={values.discount}
+                            component={TextField}
+                          />
+                        </Grid>
+                    
+
+                        <Grid item xs={12} sm={12} md={12}>
+                          <InputLabel htmlFor="image">Image</InputLabel>
+
+                          <input
+                            type="file"
+                            name="image"
+                            onChange={async (e) => {
+                              setLoading(true);
+                              const base64 = await convertIntoBase64(
+                                e.target.files[0]
+                              );
+                              setLoading(false);
+
+                              console.log(base64);
+                              setFieldValue("image", base64);
+                            }}
+                          />
+                          <img style={{width:'30px'} } src={values.image}/>
+                        </Grid>
+                      </Grid>
+                    </CardContent>
+                    <CardActions>
+                      <Grid item container spacing={1} justifyContent="center">
+                        <Button
+                          disabled={!dirty || !isValid}
+                          variant="contained"
+                          color="primary"
+                          type="Submit"
+                        >
+                          REGISTER
+                        </Button>
+                      </Grid>
+                    </CardActions>
+                  </Form>
+                );
+              }}
+            </Formik>
+          </Box>
       </Modal>
       <ToastContainer />
     </>

@@ -40,8 +40,12 @@ const getAllProducts = async () => {
 
 const addProduct = async (formData) => {
   console.log(formData);
+  const token = JSON.parse(localStorage.getItem("token"));
+
   try {
-    return await axios.post(`${baseUrl}/api/addProduct`, formData);
+    return await axios.post(`${baseUrl}/api/addProduct`, formData ,{
+      headers: { Authorization: token },
+    });
   } catch (error) {
     console.log(error);
     return error;

@@ -15,3 +15,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.css-wb57ya-MuiFormControl-root-MuiTextField-root{
+height: 50px;
+}
+.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root{
+  height: 100%;
+}
