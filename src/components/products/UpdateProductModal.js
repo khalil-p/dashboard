@@ -44,15 +44,20 @@ const style = {
   justifyContent: "center",
 };
 
-export default function UpdateProductModal({ open, setOpen, formValues  ,setSelectedValues}) {
+export default function UpdateProductModal({
+  open,
+  setOpen,
+  formValues,
+  setSelectedValues,
+  fetchData,
+}) {
   const [categoryList, setCategoryList] = useState([]);
   const [loading, setLoading] = useState(false);
-
   const initialValues = {
     name: formValues.name,
-    category: formValues.category,
+    category: formValues.category._id,
     price: formValues.price,
-    discount:formValues.discount,
+    discount: formValues.discount,
     description: formValues.description,
     image: formValues.image,
     details: [],
@@ -76,15 +81,14 @@ export default function UpdateProductModal({ open, setOpen, formValues  ,setSele
     fetchProductsList();
   }, []);
   const [response, setResponse] = useState(null);
-//   const [open, setOpen] = useState(false);
+  //   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
-    setSelectedValues(null)
-  }
+    setSelectedValues(null);
+  };
   let notify;
 
   async function handleSubmit(values) {
-
     const payload = {
       name: values.name,
       category: values.category,
@@ -101,12 +105,12 @@ export default function UpdateProductModal({ open, setOpen, formValues  ,setSele
         console.log("this is status.......", res.status);
         if (res.status === 201 || res.status === 200) {
           notify = () => {
-            toast("Product Added Successfully");
+            toast("Product Updated Successfully");
           };
           notify();
-          setSelectedValues(null)
-          setOpen(false)
-
+          fetchData();
+          setSelectedValues(null);
+          setOpen(false);
         } else {
           console.log("something went wrong");
         }
@@ -125,147 +129,145 @@ export default function UpdateProductModal({ open, setOpen, formValues  ,setSele
       <Modal
         keepMounted
         open={open}
-        onClose={handleClose}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >
-           <Box sx={style}>
-            <Button
-              onClick={handleClose}
-              style={{ position: "relative", left: "200px", bottom: "24px" }}
-            >
-              <CloseIcon />
-            </Button>
-            {loading && (
-              <Circles
-                type="Oval"
-                color="#00BFFF"
-                height={50}
-                width={50}
-                style={{ marginTop: "5rem" }}
-              />
-            )}
-            <Formik
-              initialValues={initialValues}
-              onSubmit={handleSubmit}
-              validationSchema={validationSchema}
-            >
-              {({ dirty, isValid, values, setFieldValue }) => {
-                return (
-                  <Form>
-                    <CardContent>
-                      <Grid item container spacing={2}>
-                        <Grid item xs={12} sm={12} md={12}>
-                          <InputLabel>Product Name</InputLabel>
-                          <Field
-                            variant="outlined"
-                            fullWidth
-                            name="name"
-                            value={values.name}
-                            component={TextField}
-                          />
-                        </Grid>
-                        <Grid item xs={6} sm={6} md={6}>
-                          <div>
-                            <InputLabel htmlFor="category">Category</InputLabel>
+        <Box sx={style}>
+          <Button
+            onClick={handleClose}
+            style={{ position: "relative", left: "200px", bottom: "24px" }}
+          >
+            <CloseIcon />
+          </Button>
+          {loading && (
+            <Circles
+              type="Oval"
+              color="#00BFFF"
+              height={50}
+              width={50}
+              style={{ marginTop: "5rem" }}
+            />
+          )}
+          <Formik
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+            validationSchema={validationSchema}
+          >
+            {({ dirty, isValid, values, setFieldValue }) => {
+              return (
+                <Form>
+                  <CardContent>
+                    <Grid item container spacing={2}>
+                      <Grid item xs={12} sm={12} md={12}>
+                        <InputLabel>Product Name</InputLabel>
+                        <Field
+                          variant="outlined"
+                          fullWidth
+                          name="name"
+                          value={values.name}
+                          component={TextField}
+                        />
+                      </Grid>
+                      <Grid item xs={6} sm={6} md={6}>
+                        <div>
+                          <InputLabel htmlFor="category">Category</InputLabel>
 
-                            <Select
-                              labelId="category"
-                              id="category"
-                              fullWidth
-                              name="category"
-                              value={values.category}
-                              onChange={(e) =>
-                                setFieldValue("category", e.target.value)
-                              }
-                            >
-                              <MenuItem value="">
-                                <em>Select Category</em>
+                          <Select
+                            labelId="category"
+                            id="category"
+                            fullWidth
+                            name="category"
+                            value={values.category}
+                            onChange={(e) =>
+                              setFieldValue("category", e.target.value)
+                            }
+                          >
+                            <MenuItem value="">
+                              <em>Select Category</em>
+                            </MenuItem>
+                            {categoryList.map((item) => (
+                              <MenuItem value={item.id}>
+                                <img
+                                  src={item.image}
+                                  style={{ width: "50px", height: "50px" }}
+                                />
+                                {item.name}
                               </MenuItem>
-                              {categoryList.map((item) => (
-                                <MenuItem value={item.id}>
-                                  <img
-                                    src={item.image}
-                                    style={{ width: "50px", height: "50px" }}
-                                  />
-                                  {item.name}
-                                </MenuItem>
-                              ))}
-                            </Select>
-                          </div>
-                        </Grid>
-                        <Grid item xs={6} sm={6} md={6}>
-                          <InputLabel htmlFor="description">
-                            description
-                          </InputLabel>
-                          <Field
-                            variant="outlined"
-                            fullWidth
-                            name="description"
-                            value={values.description}
-                            component={TextField}
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={6}>
-                          <InputLabel>Price</InputLabel>
-                          <Field
-                            variant="outlined"
-                            fullWidth
-                            name="price"
-                            value={values.price}
-                            component={TextField}
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={6}>
-                          <InputLabel>Discount</InputLabel>
-                          <Field
-                            variant="outlined"
-                            fullWidth
-                            name="discount"
-                            value={values.discount}
-                            component={TextField}
-                          />
-                        </Grid>
-                    
-
-                        <Grid item xs={12} sm={12} md={12}>
-                          <InputLabel htmlFor="image">Image</InputLabel>
-
-                          <input
-                            type="file"
-                            name="image"
-                            onChange={async (e) => {
-                              setLoading(true);
-                              const base64 = await convertIntoBase64(
-                                e.target.files[0]
-                              );
-                              setLoading(false);
-
-                              console.log(base64);
-                              setFieldValue("image", base64);
-                            }}
-                          />
-                          <img style={{width:'30px'} } src={values.image}/>
-                        </Grid>
+                            ))}
+                          </Select>
+                        </div>
                       </Grid>
-                    </CardContent>
-                    <CardActions>
-                      <Grid item container spacing={1} justifyContent="center">
-                        <Button
-                          disabled={!dirty || !isValid}
-                          variant="contained"
-                          color="primary"
-                          type="Submit"
-                        >
-                          REGISTER
-                        </Button>
+                      <Grid item xs={6} sm={6} md={6}>
+                        <InputLabel htmlFor="description">
+                          description
+                        </InputLabel>
+                        <Field
+                          variant="outlined"
+                          fullWidth
+                          name="description"
+                          value={values.description}
+                          component={TextField}
+                        />
                       </Grid>
-                    </CardActions>
-                  </Form>
-                );
-              }}
-            </Formik>
-          </Box>
+                      <Grid item xs={12} sm={6} md={6}>
+                        <InputLabel>Price</InputLabel>
+                        <Field
+                          variant="outlined"
+                          fullWidth
+                          name="price"
+                          value={values.price}
+                          component={TextField}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={6}>
+                        <InputLabel>Discount</InputLabel>
+                        <Field
+                          variant="outlined"
+                          fullWidth
+                          name="discount"
+                          value={values.discount}
+                          component={TextField}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={12} md={12}>
+                        <InputLabel htmlFor="image">Image</InputLabel>
+
+                        <input
+                          type="file"
+                          name="image"
+                          onChange={async (e) => {
+                            setLoading(true);
+                            const base64 = await convertIntoBase64(
+                              e.target.files[0]
+                            );
+                            setLoading(false);
+
+                            console.log(base64);
+                            setFieldValue("image", base64);
+                          }}
+                        />
+                        <img style={{ width: "30px" }} src={values.image} />
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                  <CardActions>
+                    <Grid item container spacing={1} justifyContent="center">
+                      <Button
+                        disabled={!dirty || !isValid}
+                        variant="contained"
+                        color="primary"
+                        type="Submit"
+                      >
+                        Update Product
+                      </Button>
+                    </Grid>
+                  </CardActions>
+                </Form>
+              );
+            }}
+          </Formik>
+        </Box>
       </Modal>
       <ToastContainer />
     </>

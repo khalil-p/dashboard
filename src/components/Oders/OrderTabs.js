@@ -1,12 +1,14 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import OrderCompleted from './OrderCompleted';
-import OrderCancelled from './OrderCancelled';
-import OrderPending from './OrderPending';
+import * as React from "react";
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import OrderCompleted from "./OrderCompleted";
+import OrderCancelled from "./OrderCancelled";
+import OrderPending from "./OrderPending";
+import OrderAllProduct from "./OrderAllProduct";
+import OrdersReject from "./OrdersReject";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -36,7 +38,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -48,26 +50,34 @@ export default function OrderTabs() {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+    <Box sx={{ width: "100%" }}>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+        >
           <Tab label="All Orders" {...a11yProps(0)} />
           <Tab label="Completed" {...a11yProps(1)} />
           <Tab label="Pending" {...a11yProps(2)} />
           <Tab label="Cancelled" {...a11yProps(3)} />
+          <Tab label="Rejected" {...a11yProps(3)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        All Orders
+        <OrderAllProduct />
       </TabPanel>
       <TabPanel value={value} index={1}>
-      <OrderCompleted/>
+        <OrderCompleted />
       </TabPanel>
       <TabPanel value={value} index={2}>
-       <OrderPending/>
+        <OrderPending />
       </TabPanel>
       <TabPanel value={value} index={3}>
-       <OrderCancelled/>
+        <OrderCancelled />
+      </TabPanel>
+      <TabPanel value={value} index={4}>
+        <OrdersReject />
       </TabPanel>
     </Box>
   );

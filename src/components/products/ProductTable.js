@@ -16,6 +16,15 @@ export default function ProductTable() {
     { field: "name", headerName: "Product Name", width: 210 },
     { field: "description", headerName: "Product Description", width: 250 },
     {
+      field: "category",
+      headerName: "Category",
+      width: 250,
+      renderCell: (params) => {
+        console.log(params);
+        return params.value.name;
+      },
+    },
+    {
       field: "image",
       headerName: "Image",
       width: 90,
@@ -30,7 +39,6 @@ export default function ProductTable() {
       headerName: "Action",
       width: 200,
       renderCell: (params) => {
-        console.log(params);
         return (
           <div>
             <Button
@@ -112,10 +120,11 @@ export default function ProductTable() {
             setOpen={setOpen}
             formValues={selectedValues}
             setSelectedValues={setSelectedValues}
+            fetchData={fetchProductsList}
           />
         )}
         <CreateProductModal fetchData={fetchProductsList} />
-        <div style={{ height: 600, width: "100%" }}>
+        <div style={{ height: "68vh", width: '100%' }}>
           <DataGrid
             rows={rows}
             columns={columns}

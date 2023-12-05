@@ -18,13 +18,8 @@ const columns = [
     { field: 'noOfCartItems', headerName: 'Number of Items', width: 120 },
 ];
 
-export default function OrderCancelled() {
-    // const navigate = useNavigate()
-    // useEffect(() => {
-    //     if (!localStorage.getItem("token")) {
-    //         navigate('/login')
-    //     }
-    // }, [])
+export default function OrderAllProduct() {
+
 
 
     const [jsonData, setJsonData] = useState([]);
@@ -33,25 +28,29 @@ export default function OrderCancelled() {
 
     useEffect(() => {
         const fetchProductsList = async () => {
-            const data = await adminServices.cancelledOrderList().then((res) => {
-                console.log(res);
+            setIsLoading(true)
+            const data = await adminServices.pendingOrderList("ALL").then((res) => {
                 const row1 = res.data.data.orders.map((item, index) => {
                     return { id: index + 1, ...res.data.data.orders[index] };
                 });
+                setIsLoading(false)
                 setJsonData(res.data.data.orders);
                 setRows(row1);
             });
         };
         fetchProductsList();
-        setIsLoading(false)
+      
     }, []);
+
+    // console.log("The data in rows", rows);
+    // console.log("The data in jsonData", jsonData);
 
     if (isLoading) {
         return <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>Loadin......</div>
     } else {
         return (
             <>
-                 <div style={{ height: "68vh", width: '100%' }}>
+                <div style={{ height: "68vh", width: '100%' }}>
                     <DataGrid
                         rows={rows}
                         columns={columns}
@@ -60,6 +59,7 @@ export default function OrderCancelled() {
                                 paginationModel: { page: 0, pageSize: 10 },
                             },
                         }}
+                        style={{padding:0}}
                         pageSizeOptions={[5, 10]}
                     />
                 </div>

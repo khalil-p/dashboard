@@ -56,7 +56,7 @@ export default function CreateProductModal({ fetchData }) {
     name: "",
     category: "",
     price: "",
-    discount: "",
+    discount: 0,
     description: "",
     image: "",
     details: [],
@@ -89,7 +89,7 @@ export default function CreateProductModal({ fetchData }) {
   }, []);
   async function handleSubmit(values, { resetForm }) {
     // formData.append("adminid", adminid)
-    setLoading(true)
+    setLoading(true);
     const data = await adminServices
       .addProduct({
         ...values,
@@ -103,8 +103,8 @@ export default function CreateProductModal({ fetchData }) {
             setOpen(false);
             resetForm();
             fetchData();
-            setLoading(false)
-            setDetailsArray([])
+            setLoading(false);
+            setDetailsArray([]);
           };
           notify();
         } else {
@@ -121,14 +121,16 @@ export default function CreateProductModal({ fetchData }) {
   }
   const addDetailsInArray = () => {
     setDetailsArray([...detailsArray, details]);
-    setDetails({});
+    setDetails({ name: "", price: "" });
     setOpenDetails(false);
   };
   console.log(detailsArray);
   return (
     <>
       <div>
-        <Button onClick={handleOpen}>Add Product</Button>
+        <Button variant="contained" color="primary" onClick={handleOpen}>
+          Add Product
+        </Button>
         <Modal
           keepMounted
           open={open}
@@ -228,6 +230,7 @@ export default function CreateProductModal({ fetchData }) {
                             variant="outlined"
                             fullWidth
                             name="discount"
+                            type="number"
                             value={values.discount}
                             component={TextField}
                           />
@@ -237,7 +240,7 @@ export default function CreateProductModal({ fetchData }) {
                             size="small"
                             onClick={() => setOpenDetails(true)}
                           >
-                            Add Details
+                            Add Quantity
                           </Button>
                           <List style={{ display: "flex" }}>
                             {detailsArray.length > 0 &&
@@ -280,7 +283,7 @@ export default function CreateProductModal({ fetchData }) {
                           color="primary"
                           type="Submit"
                         >
-                          REGISTER
+                          Add Product
                         </Button>
                       </Grid>
                     </CardActions>
@@ -308,8 +311,8 @@ export default function CreateProductModal({ fetchData }) {
             <CardContent>
               <Grid item container spacing={4}>
                 <Grid item xs={12} sm={12} md={12}>
-                  <InputLabel htmlFor="Name">Name</InputLabel>
-                  <input
+                  <InputLabel htmlFor="Quantity">Quantity</InputLabel>
+                  {/* <input
                     style={{ width: "100%", height: "30px" }}
                     name="name"
                     onChange={(e) =>
@@ -317,7 +320,24 @@ export default function CreateProductModal({ fetchData }) {
                     }
                     value={details.name}
                     autocomplete="off"
-                  />
+                  /> */}
+                  <Select
+                    labelId="category"
+                    fullWidth
+                    placeholder="Select a Quantity"
+                    name="category"
+                    value={details.name}
+                    // onChange={(e) =>
+                    //   setDetails({ ...details, name: e.target.value })
+                    // }
+                    onChange={(e) =>
+                      // setFieldValue("category", e.target.value)
+                      setDetails({ ...details, name: e.target.value })
+                    }
+                  >
+                    =<MenuItem value={"Half"}>Half </MenuItem>
+                    <MenuItem value={"Full"}>Full </MenuItem>
+                  </Select>
                 </Grid>
                 <Grid item xs={12} sm={12} md={12}>
                   <InputLabel htmlFor="Price">Price</InputLabel>

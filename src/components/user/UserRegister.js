@@ -110,7 +110,6 @@ const UserRegister = () => {
                             <InputLabel htmlFor="Mobile">Mobile</InputLabel>
 
                             <Field
-                              label="Mobile"
                               variant="outlined"
                               fullWidth
                               name="mobile"
@@ -121,7 +120,6 @@ const UserRegister = () => {
                           <Grid item xs={12} sm={6} md={6}>
                           <InputLabel htmlFor="email">Email</InputLabel>
                             <Field
-                              label="Email"
                               variant="outlined"
                               fullWidth
                               name="email"
@@ -133,7 +131,6 @@ const UserRegister = () => {
                           <InputLabel htmlFor="description">Description</InputLabel>
 
                             <Field
-                              label="description"
                               variant="outlined"
                               fullWidth
                               name="description"
@@ -156,7 +153,7 @@ const UserRegister = () => {
                             color="primary"
                             type="Submit"
                           >
-                            REGISTER
+                          Request To Delete
                           </Button>
                         </Grid>
                       </CardActions>

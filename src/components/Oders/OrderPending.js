@@ -33,7 +33,7 @@ export default function OrderPending() {
 
     useEffect(() => {
         const fetchProductsList = async () => {
-            const data = await adminServices.pendingOrderList().then((res) => {
+            const data = await adminServices.pendingOrderList("Pending").then((res) => {
                 console.log(res);
                 const row1 = res.data.data.orders.map((item, index) => {
                     return { id: index + 1, ...res.data.data.orders[index] };
@@ -54,17 +54,16 @@ export default function OrderPending() {
     } else {
         return (
             <>
-                <div style={{ height: 400, width: '100%' }}>
+               <div style={{ height: "68vh", width: '100%' }}>
                     <DataGrid
                         rows={rows}
                         columns={columns}
                         initialState={{
                             pagination: {
-                                paginationModel: { page: 0, pageSize: 5 },
+                                paginationModel: { page: 0, pageSize: 10 },
                             },
                         }}
                         pageSizeOptions={[5, 10]}
-                        checkboxSelection
                     />
                 </div>
             </>

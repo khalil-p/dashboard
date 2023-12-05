@@ -21,28 +21,39 @@ import { adminServices } from "../../services/admin.services";
 
 export default function OrderHistory() {
   const [rows, setRows] = useState([]);
-  const [isLoading, setIsLoading] = useState(true)
-    const navigate = useNavigate();
-    // /api/getOrderDailyLis
-    const fetchProductsList = async () => {
-      const data = await adminServices.dailyOrderList().then((res) => {
-          const row1 = res.data.data.map((item, index) => {
-              return { id: index + 1, ...item };
-          });
-
-          setRows(row1);
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+  // /api/getOrderDailyLis
+  const fetchProductsList = async () => {
+    const data = await adminServices.dailyOrderList().then((res) => {
+      const row1 = res.data.data.map((item, index) => {
+        return { id: index + 1, ...item };
       });
+
+      setRows(row1);
+    });
   };
-    useEffect(() => {
-  
-      fetchProductsList();
-      setIsLoading(false)
+  useEffect(() => {
+    fetchProductsList();
+    setIsLoading(false);
   }, []);
+  const currentDate = new Date();
+
+  // Format the date
+  const options = {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    weekday: "long",
+  };
+  const formattedDate = currentDate.toLocaleDateString("en-GB", options);
+
+  console.log(formattedDate);
 
   return (
     <>
-      <h1> Madni Restaurants Daily Billing</h1>
-      <h3>Date:22-02-2023 sunday</h3>
+      <h1> MADANI RESTAURANT DAILY COD BILLING</h1>
+      <h3>Date:{formattedDate}</h3>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -67,9 +78,14 @@ export default function OrderHistory() {
                 <TableCell align="center">{row.acceptedCount}</TableCell>
                 <TableCell align="center">{row.cancelledCount}</TableCell>
                 <TableCell align="center">{row.completedCount}</TableCell>
-                <button onClick={() => navigate(`/dashBoard/OrderDetails/${row._id?.id}`)}>
-    Order Details
-  </button>              </TableRow>
+                <button
+                  onClick={() =>
+                    navigate(`/dashBoard/OrderDetails/${row._id?.id}`)
+                  }
+                >
+                  Order Details
+                </button>{" "}
+              </TableRow>
             ))}
           </TableBody>
         </Table>

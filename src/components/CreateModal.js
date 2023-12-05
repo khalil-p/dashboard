@@ -10,6 +10,8 @@ import { Input, InputLabel, TextField } from "@mui/material";
 import "./createModal.css";
 import { adminServices } from "../services/admin.services";
 import { convertIntoBase64 } from "./upload-img/convert";
+import CloseIcon from "@mui/icons-material/Close";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -77,7 +79,7 @@ export default function KeepMountedModal({ fetchProductsList }) {
   return (
     <>
       <div>
-        <Button onClick={handleOpen}>Add Category</Button>
+        <Button onClick={handleOpen} variant="contained" color="primary">Add Category</Button>
         <Modal
           keepMounted
           open={open}
@@ -92,6 +94,12 @@ export default function KeepMountedModal({ fetchProductsList }) {
             autoComplete="off"
             sx={style}
           >
+                    <Button
+              onClick={handleClose}
+              style={{ position: "relative", left: "200px", bottom: "24px" }}
+            >
+              <CloseIcon />
+            </Button>
             <Typography
               id="keep-mounted-modal-title"
               variant="h6"
@@ -118,28 +126,19 @@ export default function KeepMountedModal({ fetchProductsList }) {
                   placeholder=""
                 />
               </div>
-              <div style={{ textAlign: "center", marginBottom: "1rem" }}>
-                <InputLabel htmlFor="adminid">Admin Id</InputLabel>
-                <TextField
-                  onChange={(e) => setAdminId(e.target.value)}
-                  value={adminid}
-                  required
-                  id="name"
-                  vatiant=" outlined"
-                  placeholder=""
-                />
-              </div>
+      
               <Button
                 className="imageUpload"
                 variant="contained"
                 component="label"
               >
-                Upload File
+                Upload
                 <Input
                   className="imgInput"
                   onChange={onUpload}
                   type="file"
                   hidden
+                  
                 />
               </Button>
               <Button
