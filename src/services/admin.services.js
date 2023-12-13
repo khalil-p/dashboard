@@ -127,12 +127,12 @@ const cancelledOrderList = async () => {
   }
 };
 
-const pendingOrderList = async () => {
+const pendingOrderList = async (status) => {
   try {
     const token = JSON.parse(localStorage.getItem("token"));
     console.log(token);
     const result = await axios.get(
-      `${baseUrl}/api/admin/orders?status=Pending`,
+      `${baseUrl}/api/admin/orders?status=${status}`,
       { headers: { Authorization: token } }
     );
     return result;

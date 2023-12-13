@@ -18,7 +18,7 @@ const columns = [
     { field: 'noOfCartItems', headerName: 'Number of Items', width: 120 },
 ];
 
-export default function OrderCancelled() {
+export default function OrdersReject() {
     // const navigate = useNavigate()
     // useEffect(() => {
     //     if (!localStorage.getItem("token")) {
@@ -33,7 +33,7 @@ export default function OrderCancelled() {
 
     useEffect(() => {
         const fetchProductsList = async () => {
-            const data = await adminServices.cancelledOrderList().then((res) => {
+            const data = await adminServices.pendingOrderList("Rejected").then((res) => {
                 console.log(res);
                 const row1 = res.data.data.orders.map((item, index) => {
                     return { id: index + 1, ...res.data.data.orders[index] };
@@ -46,12 +46,15 @@ export default function OrderCancelled() {
         setIsLoading(false)
     }, []);
 
+    // console.log("The data in rows", rows);
+    // console.log("The data in jsonData", jsonData);
+
     if (isLoading) {
         return <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>Loadin......</div>
     } else {
         return (
             <>
-                 <div style={{ height: "68vh", width: '100%' }}>
+               <div style={{ height: "68vh", width: '100%' }}>
                     <DataGrid
                         rows={rows}
                         columns={columns}

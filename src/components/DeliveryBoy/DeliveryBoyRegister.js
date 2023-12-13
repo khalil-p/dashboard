@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./delivery.css";
 import {
   Button,
@@ -6,7 +6,6 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  Container,
   Grid,
   InputLabel,
 } from "@mui/material";
@@ -15,6 +14,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { TextField } from "formik-material-ui";
+import { useNavigate } from "react-router-dom";
 const initialValues = {
   firstName: "",
   lastName: "",
@@ -24,13 +24,7 @@ const initialValues = {
   deviceToken: "e",
 };
 const DeliveryBoyRegister = () => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    mobile: "",
-    password: "",
-  });
+const navigate = useNavigate()
   let validationSchema = Yup.object().shape({
     firstName: Yup.string().required("Required"),
     lastName: Yup.string().required("Required"),
@@ -39,13 +33,7 @@ const DeliveryBoyRegister = () => {
     mobile: Yup.string().required("Moblie Required"),
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+
   let notify;
 
   const handleSubmit = async (values, { resetForm }) => {
@@ -67,6 +55,8 @@ const DeliveryBoyRegister = () => {
         };
         notify();
         resetForm();
+        navigate('/dashBoard/deliveryBoyList')
+        
       } else {
         console.log("something went wrong");
       }

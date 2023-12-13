@@ -3,7 +3,7 @@ import { adminServices } from "../../services/admin.services";
 import { useNavigate } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function DeliveryBoyList() {
   const columns = [
@@ -83,18 +83,19 @@ export default function DeliveryBoyList() {
   } else {
     return (
       <>
-        <div style={{ height: 400, width: "100%" }}>
+        <div style={{ height: "67vh", width: "100%" }}>
           <DataGrid
             rows={rows}
             columns={columns}
             initialState={{
               pagination: {
-                paginationModel: { page: 0, pageSize: 5 },
+                paginationModel: { page: 0, pageSize: 10 },
               },
             }}
             pageSizeOptions={[5, 10]}
           />
         </div>
+        <ToastContainer />
       </>
     );
   }
