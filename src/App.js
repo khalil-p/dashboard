@@ -15,6 +15,7 @@ import PrivacyPolicy from './components/privacy-policy/PrivacyPolicy.js';
 import TermsAndConditions from './components/privacy-policy/TermsAndConditions.js';
 import UserList from './components/user/UserList.js';
 import UserRegister from './components/user/UserRegister.js';
+import BanquetHallPage from './components/privacy-policy/BanquetHall.js';
 function App() {
   // adminServices.deliveryBoyRegister()
   // Set the timeout duration in minutes (e.g. 30 minutes)
@@ -49,6 +50,7 @@ function App() {
       
         <Route path='privacy-policy' element={<PrivacyPolicy />} />
         <Route path='terms-and-conditions' element={<TermsAndConditions />} />
+        <Route path='banquet-hall' element={<BanquetHallPage />} />
         <Route path='aplication' element={<UserRegister />} />
         <Route path='login' element={<LoginForm />} />
         <Route path="/" element={<ProtectedRoute component={<Dashboard />} />} >
