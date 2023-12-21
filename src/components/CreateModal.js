@@ -30,8 +30,8 @@ const style = {
 
 export default function KeepMountedModal({ fetchProductsList }) {
   const [name, setName] = useState("");
-  const [adminid, setAdminId] = useState("6416bb61115dc8d869fde3e1");
   const [img, setImg] = useState("");
+  const [valueImage, setValueImage] = useState("");
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -39,7 +39,7 @@ export default function KeepMountedModal({ fetchProductsList }) {
   const onUpload = async (e) => {
     console.log(e);
     const base64 = await convertIntoBase64(e.target.files[0]);
-    console.log(base64);
+    setValueImage(e.target.files[0]);
     setImg(base64);
   };
   let notify;
@@ -47,10 +47,10 @@ export default function KeepMountedModal({ fetchProductsList }) {
   async function getFormData(e) {
     e.preventDefault();
 
-    const payload ={
+    const payload = {
       name: name,
-      image: img 
-    }
+      image: img,
+    };
 
     const data = await adminServices
       .addCategory(payload)
@@ -61,6 +61,9 @@ export default function KeepMountedModal({ fetchProductsList }) {
             toast("Category Added Successfully");
           };
           notify();
+          setImg("");
+          setName("");
+          setValueImage('')
           fetchProductsList();
           setOpen(false);
         } else {
@@ -79,7 +82,9 @@ export default function KeepMountedModal({ fetchProductsList }) {
   return (
     <>
       <div>
-        <Button onClick={handleOpen} variant="contained" color="primary">Add Category</Button>
+        <Button onClick={handleOpen} variant="contained" color="primary">
+          Add Category
+        </Button>
         <Modal
           keepMounted
           open={open}
@@ -94,7 +99,7 @@ export default function KeepMountedModal({ fetchProductsList }) {
             autoComplete="off"
             sx={style}
           >
-                    <Button
+            <Button
               onClick={handleClose}
               style={{ position: "relative", left: "200px", bottom: "24px" }}
             >
@@ -122,11 +127,12 @@ export default function KeepMountedModal({ fetchProductsList }) {
                   onChange={(e) => setName(e.target.value)}
                   required
                   id="adminid"
+                  value={name}
                   vatiant=" outlined"
                   placeholder=""
                 />
               </div>
-      
+
               <Button
                 className="imageUpload"
                 variant="contained"
@@ -138,7 +144,7 @@ export default function KeepMountedModal({ fetchProductsList }) {
                   onChange={onUpload}
                   type="file"
                   hidden
-                  
+                  value={valueImage}
                 />
               </Button>
               <Button

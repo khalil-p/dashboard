@@ -5,7 +5,7 @@ function BanquetHallPage() {
   return (
     <div>
       <div className="banquet-hall-container">
-        <h1>Banquet Hall Gallery</h1>
+        <h1>Book Banquet Hall for Party</h1>
         <div className="banner">
           <img
             src="https://lh3.googleusercontent.com/p/AF1QipNi-tDh15cFGiRmG0xmv5Zv9ph17esUlRPHt3qk=s680-w680-h510"
@@ -42,11 +42,10 @@ function BanquetHallPage() {
 
       <footer className="footer">
         <div className="footer-details">
-          <p>123 Banquet Hall Street, City, Country</p>
-          <p>Phone: +123 456 7890</p>
+          <p>Madni Palace Restaurant, Grand Corner, Parbhani-431401(MH)</p>
+          <p>For Booking <br/> Call Us (Salman Khamisa): +91-9011198855</p>
         </div>
-        <div className="social-icons">
-          {/* Replace # with actual links */}
+        {/* <div className="social-icons">
           <a href="#" target="_blank" rel="noopener noreferrer">
             <i className="fa fa-facebook"></i>
           </a>
@@ -56,7 +55,7 @@ function BanquetHallPage() {
           <a href="#" target="_blank" rel="noopener noreferrer">
             <i className="fa fa-instagram"></i>
           </a>
-        </div>
+        </div> */}
       </footer>
     </div>
   );

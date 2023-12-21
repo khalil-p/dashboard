@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { adminServices } from "../../services/admin.services";
 import { useNavigate } from "react-router-dom";
 import { Circles } from "react-loader-spinner";
+import { ToastContainer, toast } from "react-toastify";
 function LoginForm() {
   const [inputFiled, setInputFiled] = useState({
     mobile: "",
@@ -20,17 +21,27 @@ function LoginForm() {
   };
   const handleOnClick = async () => {
     setLoading(true);
-    const data = await adminServices.loginAPICall(inputFiled).then((res) => {
+    try {
+      const res = await adminServices.loginAPICall(inputFiled);
+      if(res.data) {
       if (res.data.data.data.status === 200) {
         localStorage.setItem("token", JSON.stringify(res.data.data.data.token));
         if (localStorage.getItem("token") !== undefined) {
           navigate("/dashBoard");
         }
-      } else {
-        alert(res.response.data.data.message);
       }
-    });
-    setLoading(false);
+    }else{
+      toast.error(res.response.data.data.message);
+      setLoading(false);
+    }
+      console.log(res, "res");
+    } catch (error) {
+      // else {
+      //   console.log(res);
+      //  
+      // }
+      console.log(error, "error");
+    }
   };
   return (
     <>
@@ -73,6 +84,7 @@ function LoginForm() {
             </div>
           </>
         )}
+          <ToastContainer />
       </div>
     </>
   );

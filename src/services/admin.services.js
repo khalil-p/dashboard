@@ -69,6 +69,7 @@ const loginAPICall = async (item) => {
     const result = await axios.post(`${baseUrl}/api/admin/login`, item);
     return result;
   } catch (error) {
+    console.log(error);
     return error;
   }
 };
@@ -82,6 +83,7 @@ const deliveryBoyList = async () => {
     });
     return result;
   } catch (error) {
+  
     return error;
   }
 };
