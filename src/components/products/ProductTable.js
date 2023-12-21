@@ -21,7 +21,7 @@ export default function ProductTable() {
       width: 250,
       renderCell: (params) => {
         console.log(params);
-        return params.value.name;
+        return params?.value?.name;
       },
     },
     {

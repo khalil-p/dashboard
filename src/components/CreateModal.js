@@ -34,7 +34,12 @@ export default function KeepMountedModal({ fetchProductsList }) {
   const [valueImage, setValueImage] = useState("");
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setImg("");
+    setName("");
+    setValueImage("");
+  };
 
   const onUpload = async (e) => {
     console.log(e);
@@ -63,7 +68,7 @@ export default function KeepMountedModal({ fetchProductsList }) {
           notify();
           setImg("");
           setName("");
-          setValueImage('')
+          setValueImage("");
           fetchProductsList();
           setOpen(false);
         } else {
@@ -152,6 +157,7 @@ export default function KeepMountedModal({ fetchProductsList }) {
                 color="primary"
                 type="submit"
                 sx={{ margin: "2rem" }}
+                disabled={name === "" || img === ""}
               >
                 ADD
               </Button>

@@ -1,6 +1,6 @@
 import axios from "axios";
 // const baseUrl = "http://localhost:3002";  
-const baseUrl = "https://madni-food-app.vercel.app";
+const baseUrl = "http://localhost:3002";
 const getAllCategories = async () => {
   try {
     const token = JSON.parse(localStorage.getItem("token"));
@@ -239,7 +239,6 @@ export let adminServices = {
   getAllCategories: getAllCategories,
   loginAPICall: loginAPICall,
   addCategory: addCategory,
-  getAllProducts: getAllProducts,
   addProduct: addProduct,
   deliveryBoyList: deliveryBoyList,
   completedOrderList: completedOrderList,
