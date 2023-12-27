@@ -88,7 +88,6 @@ export default function CreateProductModal({ fetchData }) {
     fetchProductsList();
   }, []);
   async function handleSubmit(values, { resetForm }) {
-    // formData.append("adminid", adminid)
     setLoading(true);
     const data = await adminServices
       .addProduct({
