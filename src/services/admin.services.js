@@ -1,6 +1,6 @@
 import axios from "axios";
 // const baseUrl = "http://localhost:3002";  
-const baseUrl = "http://localhost:3002";
+const baseUrl = "https://madaninodejs.ojaspbn.in";
 const getAllCategories = async () => {
   try {
     const token = JSON.parse(localStorage.getItem("token"));
